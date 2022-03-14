@@ -1,6 +1,8 @@
 # portfolio-manager
 Manage investments portfolio
 
+Run main.py
+
 CLI-based tool: https://github.com/janiniraj/casparser
 
 Usage: casparser [-o output_file.json|output_file.csv] [-p password] [-s] [-a] CAS_PDF_FILE
