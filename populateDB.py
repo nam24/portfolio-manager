@@ -8,16 +8,27 @@ class PopulateDB:
         conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
 
-        # drop pre-existing table
+        # drop pre-existing tables
         cursor.execute(Queries.dropTableQ(DBConstants.mfTransactions))
+        cursor.execute(Queries.dropTableQ(DBConstants.mfInfo))
+        cursor.execute(Queries.dropTableQ(DBConstants.mfValues))
 
-        #create MF transactions table
-        cursor.execute(Queries.createMFTransactionsTableQ)
-        cursor.execute(Queries.importCSVQ(DBConstants.mfTransactions, "cas.csv"))
+        #create MF tables
+        cursor.execute(Queries.createMFTablesQ())
 
-        #amc, scheme-name, isin, amfi, pan
-        cursor.execute(Queries.getAllMFTransactionsQ)
+        cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
         line = cursor.fetchall()
+        print("\n\n")
+        print(line[0])
+
+        cursor.execute(Queries.getAllFromTable(DBConstants.mfInfo))
+        line = cursor.fetchall()
+        print("\n\n")
+        print(line[0])
+
+        cursor.execute(Queries.getAllFromTable(DBConstants.mfValues))
+        line = cursor.fetchall()
+        print("\n\n")
         print(line[0])
 
         #Closing the connection
