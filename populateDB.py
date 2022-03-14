@@ -1,7 +1,7 @@
 import psycopg2
 
 class PopulateDB:
-    def populateDBFromCSV():
+    def populateMFTransactionsFromCSV():
         #establishing the connection
         conn = psycopg2.connect(
         database="finance", user='namrata', host='127.0.0.1', port= '5432'
@@ -41,7 +41,8 @@ class PopulateDB:
 
         #amc, scheme-name, isin, amfi, pan
         cursor.execute("select * from mftransactions")
-        print(cursor.fetchall())
+        line = cursor.fetchall()
+        print(line[0])
 
         #Closing the connection
         conn.close()
