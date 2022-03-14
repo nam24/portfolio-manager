@@ -1,13 +1,11 @@
 import psycopg2
+from helper import HelperFunctions
 from queries import Queries
 
 class PopulateDB:
     def populateMFTransactionsFromCSV():
-        #establishing the connection
-        conn = psycopg2.connect(
-        database="finance", user='namrata', host='127.0.0.1', port= '5432'
-        ) # add roles and passwords
-
+        conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
+                
         #Creating a cursor object using the cursor() method
         cursor = conn.cursor()
 
@@ -24,4 +22,4 @@ class PopulateDB:
         print(line[0])
 
         #Closing the connection
-        conn.close()
+        HelperFunctions.closeDbConnection(conn)
