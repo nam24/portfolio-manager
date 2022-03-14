@@ -5,11 +5,12 @@ from helper import HelperFunctions
 from queries import Queries
 
 class RefreshDb:
-    def refreshDb(refreshFiles, refreshTables):
+    def refreshDb(newCASFile=0, refreshTables=1):
         # For MFs
-        if(refreshFiles):
+        if(newCASFile):
             CreateCSV.createCSVFromPDF()
             sleep(15)
+            
         if(refreshTables):
             RefreshDb.refreshMFTablesFromCSVs()
         
