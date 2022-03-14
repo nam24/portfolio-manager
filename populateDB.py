@@ -19,17 +19,17 @@ class PopulateDB:
         cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
         line = cursor.fetchall()
         print("\n\n")
-        print(line[0])
+        print(line)
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfInfo))
         line = cursor.fetchall()
         print("\n\n")
-        print(line[0])
+        print(line)
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfValues))
         line = cursor.fetchall()
         print("\n\n")
-        print(line[0])
+        print(line)
 
         #Closing the connection
         HelperFunctions.closeDbConnection(conn)

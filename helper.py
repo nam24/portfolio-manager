@@ -1,5 +1,5 @@
-import this
 import psycopg2
+from dbConstants import DBConstants
 
 from queries import Queries
 
@@ -9,7 +9,7 @@ class HelperFunctions:
         cursor = conn.cursor()
 
         # drop pre-existing table
-        cursor.execute(Queries.getAllMFTransactionsQ)
+        cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
         data = cursor.fetchall()
 
         HelperFunctions.closeDbConnection()
