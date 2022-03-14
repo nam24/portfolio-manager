@@ -4,17 +4,17 @@ from dbConstants import DBConstants
 from helper import HelperFunctions
 from queries import Queries
 
-class RefreshDb:
-    def refreshDb(newCASFile=0, refreshTables=1):
+class RecalculateDb:
+    def recalculateDb(newCASFile=0, recalculateTables=1):
         # For MFs
         if(newCASFile):
             CreateCSV.createCSVFromPDF()
             sleep(15)
-            
-        if(refreshTables):
-            RefreshDb.refreshMFTablesFromCSVs()
+
+        if(recalculateTables):
+            RecalculateDb.recalculateMFTablesFromCSVs()
         
-    def refreshMFTablesFromCSVs():
+    def recalculateMFTablesFromCSVs():
         conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
 
@@ -27,7 +27,7 @@ class RefreshDb:
         cursor.execute(Queries.createMFTablesQ())
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
-        line = cursor.fetchall()
+        line = cursor.fetchone()
         print("\n\n")
         print(line)
 

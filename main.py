@@ -1,9 +1,6 @@
-from refreshDb import RefreshDb
+from populateDB import RecalculateDb
 
- # behaves as switch, currently hard-coded
-refreshMFTransactions = True
-if(refreshMFTransactions):
-    RefreshDb.refreshMFTransactions()
+RecalculateDb.recalculateDb()
   
 
 # get total amount invested
