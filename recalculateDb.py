@@ -27,17 +27,17 @@ class RecalculateDb:
         cursor.execute(Queries.createMFTablesQ())
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
-        line = cursor.fetchone()
+        line = cursor.fetchmany(5)
         print("\n\n")
         print(line)
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfInfo))
-        line = cursor.fetchall()
+        line = cursor.fetchmany(5)
         print("\n\n")
         print(line)
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfValues))
-        line = cursor.fetchall()
+        line = cursor.fetchmany(5)
         print("\n\n")
         print(line)
 
