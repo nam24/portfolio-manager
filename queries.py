@@ -21,7 +21,7 @@ class Queries:
             );
         '''
 
-    importCSVQ = "COPY mftransactions FROM '/Users/namrata/Documents/PM/cas.csv' DELIMITER ',' CSV HEADER;"
+    importCSVQ = "COPY mftransactions FROM '/Users/namrata/Documents/PM/Files/cas.csv' DELIMITER ',' CSV HEADER;"
 
     getAllMFTransactionsQ = "select * from mftransactions;"
 

@@ -1,7 +1,7 @@
 from refreshDb import RefreshDb
 
  # behaves as switch, currently hard-coded
-refreshMFTransactions = False
+refreshMFTransactions = True
 if(refreshMFTransactions):
     RefreshDb.refreshMFTransactions()
   
