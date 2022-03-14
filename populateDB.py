@@ -1,10 +1,19 @@
-import psycopg2
+from time import sleep
+from createCSV import CreateCSV
 from dbConstants import DBConstants
 from helper import HelperFunctions
 from queries import Queries
 
-class PopulateDB:
-    def populateMFTransactionsFromCSV():
+class RefreshDb:
+    def refreshDb(refreshFiles, refreshTables):
+        # For MFs
+        if(refreshFiles):
+            CreateCSV.createCSVFromPDF()
+            sleep(15)
+        if(refreshTables):
+            RefreshDb.refreshMFTablesFromCSVs()
+        
+    def refreshMFTablesFromCSVs():
         conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
 
