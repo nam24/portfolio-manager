@@ -2,8 +2,6 @@
 Manage investments portfolio
 
 CLI-based tool: https://github.com/janiniraj/casparser
-This also has a library, but doesn't work well
-casparser.json is created using this
 
 Usage: casparser [-o output_file.json|output_file.csv] [-p password] [-s] [-a] CAS_PDF_FILE
 
