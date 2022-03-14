@@ -1,10 +1,10 @@
-from time import sleep
-from createCSV import CreateCSV
-from populateDB import PopulateDB
+from refreshDb import RefreshDb
 
-CreateCSV.createCSVFromPDF()
-sleep(20)
-PopulateDB.populateMFTransactionsFromCSV()
+ # behaves as switch, currently hard-coded
+refreshMFTransactions = False
+if(refreshMFTransactions):
+    RefreshDb.refreshMFTransactions()
+  
 
 # get total amount invested
 # get total amount invested by scheme
