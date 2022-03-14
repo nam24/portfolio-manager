@@ -1,7 +1,11 @@
+from dbConstants import DBConstants
+
+
 class Queries:
-    dropTableQ = "DROP TABLE IF EXISTS mftransactions;"
+    def dropTableQ(tableName):
+        return "DROP TABLE IF EXISTS " + tableName + ";"
     
-    createTableQ = '''
+    createMFTransactionsTableQ = '''
             CREATE TABLE mftransactions(
                 amc VARCHAR(80) NOT NULL,
                 folio VARCHAR(25) NOT NULL,
@@ -17,11 +21,30 @@ class Queries:
                 nav FLOAT8,
                 balance FLOAT8,
                 type TEXT,
-                dividend varchar(10)
+                dividend VARCHAR(10)
             );
         '''
+    
+    def renameColumnsQ(tableName, oldColName, newColName):
+        return "ALTER TABLE " + tableName + " RENAME COLUMN " + oldColName + " TO " + newColName + ";"
 
-    importCSVQ = "COPY mftransactions FROM '/Users/namrata/Documents/PM/Files/cas.csv' DELIMITER ',' CSV HEADER;"
+    def importCSVQ(tableName, targetFileName):
+        return "COPY " + tableName + " FROM '" + DBConstants.filesLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
 
     getAllMFTransactionsQ = "select * from mftransactions;"
+'''
+create temporary table t (x1 integer, ... , x10 text)
+Copy from the file into it:
 
+copy t (x1, ... , x10)
+from '/path/to/my_file'
+with (format csv)
+Now insert into the definitive table from the temp:
+
+insert into my_table (x2, x5, x7, x10)
+select x2, x5, x7, x10
+from t
+And drop it:
+
+drop table t
+'''

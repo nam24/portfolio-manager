@@ -1,20 +1,19 @@
 import psycopg2
+from dbConstants import DBConstants
 from helper import HelperFunctions
 from queries import Queries
 
 class PopulateDB:
     def populateMFTransactionsFromCSV():
         conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
-                
-        #Creating a cursor object using the cursor() method
         cursor = conn.cursor()
 
         # drop pre-existing table
-        cursor.execute(Queries.dropTableQ)
+        cursor.execute(Queries.dropTableQ(DBConstants.mfTransactions))
 
         #create MF transactions table
-        cursor.execute(Queries.createTableQ)
-        cursor.execute(Queries.importCSVQ)
+        cursor.execute(Queries.createMFTransactionsTableQ)
+        cursor.execute(Queries.importCSVQ(DBConstants.mfTransactions, "cas.csv"))
 
         #amc, scheme-name, isin, amfi, pan
         cursor.execute(Queries.getAllMFTransactionsQ)
