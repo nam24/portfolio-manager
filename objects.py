@@ -1,3 +1,9 @@
+class Db:
+    def __init__(self, mfTransactions, mfInfo, mfValues): # add more if more tables
+        self.mfTransactions = mfTransactions
+        self.mfInfo = mfInfo
+        self.mfValues = mfValues
+
 class MFTransactions:
     def __init__(self, tuple):
         self.amc             = tuple[0] 

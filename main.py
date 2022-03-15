@@ -1,7 +1,8 @@
-from recalculateDb import RecalculateDb
+from recalculateDb import CalculateDb
 
-RecalculateDb.recalculateDb()
-  
+db = CalculateDb.calculateDb(0,1)
+
+print(db)
 
 # get total amount invested
 # get total amount invested by scheme

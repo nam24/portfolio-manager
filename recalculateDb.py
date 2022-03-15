@@ -1,20 +1,22 @@
 from time import sleep
+from objects import MFTransactions
 from createCSV import CreateCSV
 from dbConstants import DBConstants
 from helper import HelperFunctions
 from queries import Queries
 
-class RecalculateDb:
-    def recalculateDb(newCASFile=0, recalculateTables=1):
+class CalculateDb:
+    def calculateDb(newCASFile=0, recalculateTables=1):
         # For MFs
         if(newCASFile):
             CreateCSV.createCSVFromPDF()
             sleep(15)
 
-        if(recalculateTables):
-            RecalculateDb.recalculateMFTablesFromCSVs()
+        db = CalculateDb.calculateMFTablesFromCSVs(recalculateTables)
+
+        return db
         
-    def recalculateMFTablesFromCSVs():
+    def calculateMFTablesFromCSVs(recalculateTables):
         conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
 
@@ -27,10 +29,16 @@ class RecalculateDb:
         cursor.execute(Queries.createMFTablesQ())
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
-        line = cursor.fetchmany(5)
+        data = cursor.fetchall()
         print("\n\n")
-        print(line)
+        print(data)
+        mftransactions = []
+        for tuple in data:
+            #print(tuple)
+            mftransactions.append(MFTransactions(tuple))
+            #print("done \n")
 
+        # db.mfTransactions = mftransactions
         cursor.execute(Queries.getAllFromTable(DBConstants.mfInfo))
         line = cursor.fetchmany(5)
         print("\n\n")
@@ -43,3 +51,5 @@ class RecalculateDb:
 
         #Closing the connection
         HelperFunctions.closeDbConnection(conn)
+
+        return {}
