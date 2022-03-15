@@ -21,6 +21,8 @@ print(totalLumpSum)
 totalStampDuty = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.STAMP_DUTY_TAX)
 print(totalStampDuty)
 
+print(HelperFunctions.getCurrentTotalAmt(mfTransactions))
+
 # get total amount invested
 # get total amount invested by scheme
 # get total amount invested by AMC

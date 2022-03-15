@@ -4,8 +4,6 @@ from applescript import tell
 from dbConstants import DBConstants
 from objects import MFTransactions
 
-from queries import Queries
-
 class HelperFunctions:
     def getTotalAmountByTransactionType(mfTransactions, type):
         def filterByType(x):
@@ -14,6 +12,15 @@ class HelperFunctions:
             return 0
 
         return sum(map(filterByType, mfTransactions))
+    
+    def getCurrentTotalAmt(mfTransactions):
+        sum = sum(map(
+                    lambda x: HelperFunctions.getTotalAmountByTransactionType(
+                        mfTransactions, 
+                        x
+                    ), 
+                    DBConstants.transactionTypes
+                ))
 
     def getDbConnectionObject(database, user):
         #establishing the connection
