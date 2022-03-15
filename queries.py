@@ -12,6 +12,49 @@ class Queries:
 
     def getAllFromTable(tableName):
         return "select * from " + tableName + ";"
+    
+    def createMFValuesTableQ():
+        createTempTableQ = '''
+            CREATE TEMPORARY TABLE t2(
+                amc VARCHAR(80) NOT NULL,
+                folio VARCHAR(25) NOT NULL,
+                advisor VARCHAR(40),
+                registrar VARCHAR(20),
+                pan VARCHAR(10),
+                scheme VARCHAR(120),
+                isin VARCHAR(15),
+                amfi VARCHAR(8),
+                open FLOAT8,
+                close FLOAT8,
+                value FLOAT8,
+                date DATE NOT NULL,
+                transactions INTEGER
+            );
+        ''' 
+        createMFValuesQ = '''
+            CREATE TABLE mfvalues(
+                amc VARCHAR(80) NOT NULL,
+                folio VARCHAR(25) NOT NULL,
+                registrar VARCHAR(20),
+                scheme VARCHAR(120),
+                open FLOAT8,
+                close FLOAT8,
+                value FLOAT8,
+                date DATE NOT NULL
+            );
+        ''' 
+
+        populateMFValuesQ = '''
+            INSERT INTO mfvalues(amc, folio, registrar, scheme, open, close, value, date)
+            SELECT amc, folio, registrar, scheme, open, close, value, date
+            FROM t2;
+        '''
+
+        Q2 = createTempTableQ + createMFValuesQ
+        Q2 = Q2 + Queries.importCSVQ("t2", "cas-summary.csv") + populateMFValuesQ
+        Q2 = Q2 + Queries.dropTableQ("t2")
+
+        return Q2
 
     def createMFTablesQ():
         createTempTableQ = '''
@@ -73,45 +116,7 @@ class Queries:
         Q1 = createTempTableQ + createMFTransactionsQ + createMFInfoQ
         Q1 = Q1 + Queries.importCSVQ("t", "cas.csv") + populateMFTransactionsQ + populateMFInfoQ
         Q1 = Q1 + Queries.dropTableQ("t")
-
-        createTempTableQ = '''
-            CREATE TEMPORARY TABLE t2(
-                amc VARCHAR(80) NOT NULL,
-                folio VARCHAR(25) NOT NULL,
-                advisor VARCHAR(40),
-                registrar VARCHAR(20),
-                pan VARCHAR(10),
-                scheme VARCHAR(120),
-                isin VARCHAR(15),
-                amfi VARCHAR(8),
-                open FLOAT8,
-                close FLOAT8,
-                value FLOAT8,
-                date DATE NOT NULL,
-                transactions INTEGER
-            );
-        ''' 
-        createMFValuesQ = '''
-            CREATE TABLE mfvalues(
-                amc VARCHAR(80) NOT NULL,
-                folio VARCHAR(25) NOT NULL,
-                registrar VARCHAR(20),
-                scheme VARCHAR(120),
-                open FLOAT8,
-                close FLOAT8,
-                value FLOAT8,
-                date DATE NOT NULL
-            );
-        ''' 
-
-        populateMFValuesQ = '''
-            INSERT INTO mfvalues(amc, folio, registrar, scheme, open, close, value, date)
-            SELECT amc, folio, registrar, scheme, open, close, value, date
-            FROM t2;
-        '''
-
-        Q2 = createTempTableQ + createMFValuesQ
-        Q2 = Q2 + Queries.importCSVQ("t2", "cas-summary.csv") + populateMFValuesQ
-        Q2 = Q2 + Queries.dropTableQ("t2")
+        Q2 = Queries.createMFValuesTableQ()
 
         return Q1 + Q2
+
