@@ -11,6 +11,21 @@ class HelperFunctions:
         # drop pre-existing table
         cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
         data = cursor.fetchall()
+        '''
+        mobile_records = cursor.fetchall()
+        for row in mobile_records:
+            print("Id = ", row[0], )
+            print("Model = ", row[1])
+            print("Price  = ", row[2])
+
+        # creating list       
+list = [] 
+  
+# appending instances to list 
+list.append( geeks('Akash', 2) )
+list.append( geeks('Deependra', 40) )
+
+'''
 
         HelperFunctions.closeDbConnection()
         return data
