@@ -7,22 +7,13 @@ from objects import MFTransactions
 from queries import Queries
 
 class HelperFunctions:
-    def getListOfAllMFTransactions():
-        conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
-        cursor = conn.cursor()
+    def getTotalAmountByTransactionType(mfTransactions, type):
+        def filterByType(x):
+            if(x.type == type):
+                return x.amount
+            return 0
 
-        cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
-        data = cursor.fetchall()
-        print(data)
-
-        mftransactions = []
-        for tuple in data:
-            print(tuple)
-            mftransactions.append(MFTransactions(tuple))
-            print("done \n")
-
-        HelperFunctions.closeDbConnection(conn)
-        return mftransactions
+        return sum(map(filterByType, mfTransactions))
 
     def getDbConnectionObject(database, user):
         #establishing the connection

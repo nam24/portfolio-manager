@@ -1,5 +1,6 @@
 from calculateDb import CalculateDb
 from dbConstants import DBConstants
+from helper import HelperFunctions
 
 db = CalculateDb.calculateDb(0)
 mfTransactions = db.mfTransactions
@@ -10,22 +11,15 @@ mfValues = db.mfValues
 # compare units in folio and scheme subtract from 1st?---> complex
 # sum all except redemption. Rest of the claculation will require manual input
 # have another function for redeemed funds
-
-def sipInvestments(x):
-    if(x.type == DBConstants.PURCHASE_SIP):
-        return x.amount
-    return 0
-
-def lumpsumInvestments(x):
-    if(x.type == DBConstants.PURCHASE):
-        return x.amount
-    return 0
   
-totalSIP = sum(map(sipInvestments, mfTransactions))
+totalSIP = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE_SIP)
 print(totalSIP)
 
-totalLumpSum = sum(map(lumpsumInvestments, mfTransactions))
+totalLumpSum = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE)
 print(totalLumpSum)
+
+totalStampDuty = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.STAMP_DUTY_TAX)
+print(totalStampDuty)
 
 # get total amount invested
 # get total amount invested by scheme
