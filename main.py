@@ -1,4 +1,4 @@
-from recalculateDb import CalculateDb
+from calculateDb import CalculateDb
 
 db = CalculateDb.calculateDb(0,1)
 
