@@ -2,7 +2,7 @@ from calculateDb import CalculateDb
 
 db = CalculateDb.calculateDb(0)
 
-print(db)
+print(db.mfTransactions[0].description)
 
 # get total amount invested
 # get total amount invested by scheme

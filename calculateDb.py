@@ -12,8 +12,7 @@ class CalculateDb:
             CreateCSV.createCSVFromPDF()
             sleep(15)
 
-        db = CalculateDb.calculateMFTablesFromCSVs()
-        return db
+        return CalculateDb.calculateMFTablesFromCSVs()
         
     def calculateMFTablesFromCSVs():
         conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
@@ -30,35 +29,25 @@ class CalculateDb:
         cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
         data = cursor.fetchall()
         print("\n\n")
-        print(data[0])
-        mftransactions = []
+        mfTransactions = []
         for tuple in data:
-            print(tuple)
-            mftransactions.append(MFTransactions(tuple))
-            print("done \n")
+            mfTransactions.append(MFTransactions(tuple))
 
-        # db.mfTransactions = mftransactions
         cursor.execute(Queries.getAllFromTable(DBConstants.mfInfo))
         data = cursor.fetchall()
         print("\n\n")
-        print(data[0])
         mfInfo = []
         for tuple in data:
-            #print(tuple)
             mfInfo.append(MFInfo(tuple))
-            #print("done \n")
 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfValues))
         data = cursor.fetchall()
         print("\n\n")
-        print(data[0])
         mfValues = []
         for tuple in data:
-            #print(tuple)
             mfValues.append(MFValues(tuple))
-            #print("done \n")
 
         #Closing the connection
         HelperFunctions.closeDbConnection(conn)
 
-        return Db(mftransactions, mfInfo, mfValues)
+        return Db(mfTransactions, mfInfo, mfValues)
