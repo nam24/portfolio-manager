@@ -1,6 +1,6 @@
 from calculateDb import CalculateDb
 
-db = CalculateDb.calculateDb(0,1)
+db = CalculateDb.calculateDb(0)
 
 print(db)
 
