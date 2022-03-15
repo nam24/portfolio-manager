@@ -4,3 +4,12 @@ class DBConstants:
     mfTransactions = 'mftransactions'
     mfInfo = 'mfinfo'    
     mfValues = 'mfvalues'
+
+    # Transaction types
+    MISC = 'MISC'
+    PURCHASE_SIP = 'PURCHASE_SIP'
+    PURCHASE = 'PURCHASE'
+    REDEMPTION = 'REDEMPTION'
+    REVERSAL = 'REVERSAL'
+    STAMP_DUTY_TAX = 'STAMP_DUTY_TAX'
+    STT_TAX = 'STT_TAX'

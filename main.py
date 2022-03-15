@@ -1,8 +1,31 @@
 from calculateDb import CalculateDb
+from dbConstants import DBConstants
 
 db = CalculateDb.calculateDb(0)
+mfTransactions = db.mfTransactions
+mfInfo = db.mfInfo # deja vu
+mfValues = db.mfValues
 
-print(db.mfTransactions[0].description)
+# how to treat redemptions?
+# compare units in folio and scheme subtract from 1st?---> complex
+# sum all except redemption. Rest of the claculation will require manual input
+# have another function for redeemed funds
+
+def sipInvestments(x):
+    if(x.type == DBConstants.PURCHASE_SIP):
+        return x.amount
+    return 0
+
+def lumpsumInvestments(x):
+    if(x.type == DBConstants.PURCHASE):
+        return x.amount
+    return 0
+  
+totalSIP = sum(map(sipInvestments, mfTransactions))
+print(totalSIP)
+
+totalLumpSum = sum(map(lumpsumInvestments, mfTransactions))
+print(totalLumpSum)
 
 # get total amount invested
 # get total amount invested by scheme
