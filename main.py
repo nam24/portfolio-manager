@@ -1,5 +1,5 @@
 from database.calculateDb import CalculateDb
-from reports import Reports
+from reports.reports import Reports
 
 # MFData class instance:
 mfData = CalculateDb.calculateDb(0)

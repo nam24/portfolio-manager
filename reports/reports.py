@@ -1,5 +1,5 @@
 from constants import Constants
-from reportHelper import ReportHelperFunctions
+from reports.reportHelper import ReportHelperFunctions
 
 class Reports:
     def calculateReports(mfData):
