@@ -29,6 +29,20 @@ print('Total stamp duty is', round(totalStampDuty, 3))
 totalAmountInvested = ReportHelperFunctions.getCurrentTotalAmt(mfTransactions)
 print('Total amount invested is', round(totalAmountInvested, 3))
 
+print()
+print('Adjusting for redemptions,')
+totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, DBConstants.PURCHASE_SIP)
+print('Total amount invested through SIPs is', round(totalSIP, 3))
+
+totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, DBConstants.PURCHASE)
+print('Total amount invested through lumpsum is', round(totalLumpSum, 3))
+
+totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, DBConstants.STAMP_DUTY_TAX)
+print('Total stamp duty is', round(totalStampDuty, 3))
+
+totalAmountInvested = ReportHelperFunctions.getCurrentTotalAmt(adjTransactions)
+print('Total amount invested is', round(totalAmountInvested, 3))
+
 
 # get total amount invested
 # get total amount invested by scheme
