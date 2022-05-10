@@ -21,13 +21,24 @@ class Reports:
         print('Total number of folios invested in: ', len(allFolios))
         
         for x in allAMCs:
-            tr = {z for z in adjTransactions if z.amc==x}
             print()
-            amt = sum(map(lambda z: z.amount, tr))
-            print(f'  - {x} : {round(amt,2)}')
-            funds = set(list(map(lambda z: z.scheme, tr)))
+            amctr = {z for z in purchaseTransactions if z.amc==x}
+            amt = sum(map(lambda z: z.amount, amctr))  
+            print(f'  - {x}: {round(amt,2)}')
+
+            funds = set(list(map(lambda z: z.scheme, amctr)))
             for y in funds:
-                print('    *', y)
+                fundtr = {z for z in amctr if z.scheme == y}
+                print(f'    * {y}')
+
+
+
+
+
+
+
+
+
 
 
         print()
