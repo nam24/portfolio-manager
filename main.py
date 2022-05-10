@@ -1,8 +1,13 @@
 from calculateDb import CalculateDb
 from dbConstants import DBConstants
 from helper import HelperFunctions
+from queries import Queries
 
-db = CalculateDb.calculateDb(0)
+conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
+cursor = conn.cursor()
+
+db = CalculateDb.calculateDb(conn, 0)
+
 mfTransactions = db.mfTransactions
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues

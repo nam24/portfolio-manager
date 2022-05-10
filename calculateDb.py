@@ -6,7 +6,7 @@ from helper import HelperFunctions
 from queries import Queries
 
 class CalculateDb:
-    def calculateDb(newCASFile=0):
+    def calculateDb(conn, newCASFile=0):
         # If we want to create new csv files from pdf
         if(newCASFile):
             CreateCSV.createCSVFromPDF()
@@ -15,11 +15,10 @@ class CalculateDb:
         # Populates the postgresql database from cas.csv
         # Currently this needs to be done everytime, need to find
         # a way to retain the tables
-        return CalculateDb.calculateMFTablesFromCSVs()
+        return CalculateDb.calculateMFTablesFromCSVs(conn)
         
-    def calculateMFTablesFromCSVs():
+    def calculateMFTablesFromCSVs(conn):
         # DB name = 'finance', user = 'namrata'
-        conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
 
         # drop pre-existing tables
@@ -58,8 +57,5 @@ class CalculateDb:
         mfValues = []
         for tuple in data:
             mfValues.append(MFValues(tuple))
-
-        #Closing the connection
-        HelperFunctions.closeDbConnection(conn)
 
         return Db(mfTransactions, mfInfo, mfValues)
