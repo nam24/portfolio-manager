@@ -28,9 +28,16 @@ class CalculateDb:
         cursor.execute(Queries.dropTableQ(DBConstants.mfInfo))
         cursor.execute(Queries.dropTableQ(DBConstants.mfValues))
 
-        #create MF tables
+        # Create MF tables:
+        # mfTransactions 
+        # mfInfo 
+        # mfValues 
         cursor.execute(Queries.createMFTablesQ())
 
+        # Get all data from postgres tables and store in Db object which is returned
+        # This is a useless step at this point because the simpler way will be to extract
+        # this data directly from csv (no need to create postgres db).
+        # In any case, it doesn't make sense to have this functionality here. 
         cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
         data = cursor.fetchall()
         print("\n\n")

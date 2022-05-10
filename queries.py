@@ -50,11 +50,18 @@ class Queries:
             FROM t2;
         '''
 
-        Q2 = createTempTableQ + createMFValuesQ
-        Q2 = Q2 + Queries.importCSVQ("t2", "cas-summary.csv") + populateMFValuesQ
+        Q2 = createTempTableQ + Queries.importCSVQ("t2", "cas-summary.csv")
+        Q2 = Q2 + createMFValuesQ
+        Q2 = Q2 + populateMFValuesQ
         Q2 = Q2 + Queries.dropTableQ("t2")
 
         return Q2
+
+    # Main function for creating and populating tables
+    # 1. Create a temp table with same schema as the csv files and populate it.
+    # 2. Create main tables with required schemas.
+    # 3. Populate these tables using temp tables from step 1.
+    # 4. Drop the temp table
 
     def createMFTablesQ():
         createTempTableQ = '''
@@ -113,8 +120,9 @@ class Queries:
             FROM t;
         '''
 
-        Q1 = createTempTableQ + createMFTransactionsQ + createMFInfoQ
-        Q1 = Q1 + Queries.importCSVQ("t", "cas.csv") + populateMFTransactionsQ + populateMFInfoQ
+        Q1 = createTempTableQ + Queries.importCSVQ("t", "cas.csv")
+        Q1 = Q1 + createMFTransactionsQ + createMFInfoQ
+        Q1 = Q1 + populateMFTransactionsQ + populateMFInfoQ
         Q1 = Q1 + Queries.dropTableQ("t")
         Q2 = Queries.createMFValuesTableQ()
 
