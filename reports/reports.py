@@ -1,6 +1,6 @@
 from constants import Constants
 from reports.reportHelper import ReportHelperFunctions
-# currency formatting
+
 class Reports:
     def calculateReports(mfData):
         # 1. Clean up the data
@@ -45,19 +45,14 @@ class Reports:
     
     def calculateMCNAVSummary(purchaseTransactions):
         print('Market Cap category distribution:')
-        mcCategories = Constants.FundsByMC.keys()
+        mcCategories = Constants.FundsByCategory.keys()
         totalAmt = sum(map(lambda x:x.amount, purchaseTransactions))
-        print(len(purchaseTransactions))
-        print(totalAmt)
 
         for category in mcCategories:
-            print()
-            ctr = {x for x in purchaseTransactions if x.scheme in Constants.FundsByMC[category]}
+            ctr = {x for x in purchaseTransactions if x.scheme in Constants.FundsByCategory[category]}
             amt = sum(map(lambda z: z.amount, ctr))  
-            print(f'{category}: {amt} ({round(amt*100/totalAmt, 2)}%)')
-            print(category)
-            print(len(ctr))
-            print(amt)
+            print(f'{category}: {round(amt,2)} ({round(amt*100/totalAmt, 2)}%)')
+        print()
 
     def calculateTransactionsSummary(adjTransactions):
         print('Adjusting for redemptions,')
@@ -71,28 +66,14 @@ class Reports:
         print(f'Total amount invested through SIPs: {round(totalSIP, 2)} ({round(totalSIP*100/total,2)}%)')
         print(f'Total amount invested through lumpsum: {round(totalLumpSum, 2)} ({round(totalLumpSum*100/total,2)}%)')
         print(f'Total others (stamp duty, transaction charges, redemption STT_Tax): {round(totalStampDuty, 2)}')
+        print()
 
-
-
-        # print('Without keeping redemptions in mind,')
-        # totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, Constants.PURCHASE_SIP)
-        # print('Total amount invested through SIPs is', round(totalSIP, 3))
-
-        # totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, Constants.PURCHASE)
-        # print('Total amount invested through lumpsum is', round(totalLumpSum, 3))
-
-        # totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, Constants.STAMP_DUTY_TAX)
-        # print('Total stamp duty is', round(totalStampDuty, 3))
-
-        # totalAmountInvested = ReportHelperFunctions.getCurrentTotalAmt(mfTransactions)
-        # print('Total amount invested is', round(totalAmountInvested, 3))
-        
         # Priority
-                # get % distribution in LC/MC/SC/L&MC...
+                # currency formatting
                 # fetch all long term capital gains eligible purchase transactions
-
-                # print all 3 tables in excel and calculated figures as well
-                # get a txt report
+                # print this data in excel
+                # proper documentation so that no time gone next time
+                # adding args to main.py
                 
                 # adding sanity checks
                 # testing/ adding checks that csv is correct
@@ -102,13 +83,17 @@ class Reports:
                 # SIP chart - x axis shows dates in a month and y shows amount (find way to show which market cap)
                 # show graphs in report??
                 # get curve of amt invested vs month
+                # get a txt report
                 # no. of folios by fund
+                # print all 3 tables in excel
+
         # Done
                 # get total amount invested
                 # Lumpsum vs SIP
                 # top level summary- no. of amc, funds, folios
                 # get total amount invested by AMC
                 # get total amount invested by scheme
+                # get % distribution in LC/MC/SC/L&MC...
 
                 # how to treat redemptions?
                 # compare units in folio and scheme subtract from 1st?---> complex

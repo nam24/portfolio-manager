@@ -59,7 +59,7 @@ class Constants:
         'Axis Long Term Equity Fund - Direct Growth'
     ]
 
-    FundsByMC = {
+    FundsByCategory = {
         'Large Cap': LARGECAP_FUNDS,
         'Mid Cap': MIDCAP_FUNDS,
         'Small Cap': SMALLCAP_FUNDS,
