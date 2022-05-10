@@ -7,18 +7,23 @@ from queries import Queries
 
 class CalculateDb:
     def calculateDb(newCASFile=0):
-        # For MFs
+        # If we want to create new csv files from pdf
         if(newCASFile):
             CreateCSV.createCSVFromPDF()
             sleep(15)
 
+        # Populates the postgresql database from cas.csv
+        # Currently this needs to be done everytime, need to find
+        # a way to retain the tables
         return CalculateDb.calculateMFTablesFromCSVs()
         
     def calculateMFTablesFromCSVs():
+        # DB name = 'finance', user = 'namrata'
         conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
 
         # drop pre-existing tables
+        # can make this optional when we find a way to retain tables
         cursor.execute(Queries.dropTableQ(DBConstants.mfTransactions))
         cursor.execute(Queries.dropTableQ(DBConstants.mfInfo))
         cursor.execute(Queries.dropTableQ(DBConstants.mfValues))

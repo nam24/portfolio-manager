@@ -119,4 +119,3 @@ class Queries:
         Q2 = Queries.createMFValuesTableQ()
 
         return Q1 + Q2
-
