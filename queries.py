@@ -12,6 +12,9 @@ class Queries:
 
     def getAllFromTable(tableName):
         return "select * from " + tableName + ";"
+        
+    def getAllDisctinctFromTable(tableName):
+        return "select distinct * from " + tableName + ";"
     
     def createMFValuesTableQ():
         createTempTableQ = '''

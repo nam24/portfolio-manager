@@ -43,7 +43,7 @@ class CalculateDb:
         for tuple in data:
             mfTransactions.append(MFTransactions(tuple))
 
-        cursor.execute(Queries.getAllFromTable(DBConstants.mfInfo))
+        cursor.execute(Queries.getAllDisctinctFromTable(DBConstants.mfInfo))
         data = cursor.fetchall()
         print("\n\n")
         mfInfo = []
