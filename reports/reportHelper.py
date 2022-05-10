@@ -17,11 +17,11 @@ class ReportHelperFunctions:
                         x
                     ), 
                     [
-                        Constants.MISC,
+                        # Constants.MISC,
                         Constants.PURCHASE_SIP, 
                         Constants.PURCHASE, 
                         Constants.REVERSAL, 
-                        Constants.STAMP_DUTY_TAX
+                        # Constants.STAMP_DUTY_TAX
                     ]
                 ))
 

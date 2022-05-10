@@ -5,23 +5,45 @@ class Reports:
     def calculateReports(mfData):
         # 1. Clean up the data
         # 2. Get numbers and print on console/ file
+
         mfData = ReportHelperFunctions.cleanUpDbObject(mfData)
         mfTransactions = mfData.mfTransactions
-        # adjusting for redemptions
+        # adjusting for redemptions. This contains all stamp duties and misc, though
         adjTransactions = ReportHelperFunctions.getRedemptionAdjustedTransactions(mfTransactions)
+        print('Stamp Duty and other fees have not been included in the below numbers (unless specified.\n')
+        purchaseTransactions = {x for x in adjTransactions if x.type in [Constants.PURCHASE, Constants.PURCHASE_SIP, Constants.REVERSAL]}
+        
+        allAMCs = set(list(map(lambda x: x.amc, purchaseTransactions)))
+        allFunds = set(list(map(lambda x: x.scheme, purchaseTransactions)))
+        allFolios = set(list(map(lambda x: x.folio, purchaseTransactions)))
+        print('Total number of fund houses invested in: ', len(allAMCs))
+        print('Total number of funds invested in: ', len(allFunds))
+        print('Total number of folios invested in: ', len(allFolios))
+        
+        for x in allAMCs:
+            tr = {z for z in adjTransactions if z.amc==x}
+            print()
+            amt = sum(map(lambda z: z.amount, tr))
+            # print(f'  - {x} : {round(amt,2)}')
+            funds = set(list(map(lambda z: z.scheme, tr)))
+            # for y in funds:
+                # print('    *', y)
 
-        totalNumberOfAMCs = len(set(list(map(lambda x: x.amc, mfTransactions))))
-        print('Total number of fund houses invested in: ', totalNumberOfAMCs, '.')
+
+        print()
         print('Adjusting for redemptions,')
-        totalAmountInvested = ReportHelperFunctions.getCurrentTotalAmt(adjTransactions)
-        totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, Constants.PURCHASE_SIP)
-        totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, Constants.PURCHASE)
+        totalAmountInvested = sum(map(lambda x: x.amount, purchaseTransactions))
+        totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, Constants.PURCHASE_SIP)
+        totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, Constants.PURCHASE)
         total = totalSIP + totalLumpSum
-        totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, Constants.STAMP_DUTY_TAX)
-        print('Total amount invested including stamp duty: ', round(totalAmountInvested, 3), '.')
-        print('Total amount invested through SIPs: ', round(totalSIP, 3), ' (', round(totalSIP*100/total,2), '% ).')
-        print('Total amount invested through lumpsum: ', round(totalLumpSum, 3), ' (', round(totalLumpSum*100/total,2),'% ).')
-        print('Total stamp duty: ', round(totalStampDuty, 3), '.')
+        totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(
+                            adjTransactions, 
+                            [Constants.STAMP_DUTY_TAX, Constants.MISC, Constants.STT_TAX]
+                        )
+        print('Total amount invested: ', round(totalAmountInvested, 2))
+        print('Total amount invested through SIPs: ', round(totalSIP, 2), ' (', round(totalSIP*100/total,2), '% )')
+        print('Total amount invested through lumpsum: ', round(totalLumpSum, 2), ' (', round(totalLumpSum*100/total,2),'% )')
+        print('Total other (stamp duty, transaction charges, redemption STT_Tax): ', round(totalStampDuty, 3))
         
 
         # print('Without keeping redemptions in mind,')
