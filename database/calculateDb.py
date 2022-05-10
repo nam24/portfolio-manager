@@ -1,11 +1,12 @@
 from time import sleep
+from database.databaseHelper import DatabaseHelperFunctions
 from objects import MFTransactions, MFInfo, MFValues, Db
-from createCSV import CreateCSV
+from database.createCSV import CreateCSV
 from dbConstants import DBConstants
-from queries import Queries
+from database.queries import Queries
 
 class CalculateDb:
-    def calculateDb(conn, newCASFile=0):
+    def calculateDb(newCASFile=0):
         # If we want to create new csv files from pdf
         if(newCASFile):
             CreateCSV.createCSVFromPDF()
@@ -14,10 +15,11 @@ class CalculateDb:
         # Populates the postgresql database from cas.csv
         # Currently this needs to be done everytime, need to find
         # a way to retain the tables
-        return CalculateDb.calculateMFTablesFromCSVs(conn)
+        return CalculateDb.calculateMFTablesFromCSVs()
         
-    def calculateMFTablesFromCSVs(conn):
+    def calculateMFTablesFromCSVs():
         # DB name = 'finance', user = 'namrata'
+        conn = DatabaseHelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
 
         # drop pre-existing tables

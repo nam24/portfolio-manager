@@ -1,20 +1,17 @@
-from pickletools import long1
-from calculateDb import CalculateDb
-from databaseHelper import DatabaseHelperFunctions
+from database.calculateDb import CalculateDb
 from reportHelper import ReportHelperFunctions
 from dbConstants import DBConstants
-from queries import Queries
 
-conn = DatabaseHelperFunctions.getDbConnectionObject('finance', 'namrata')
-cursor = conn.cursor()
+db = CalculateDb.calculateDb(0)
 
-db = CalculateDb.calculateDb(conn, 0)
+# Create report
 db = ReportHelperFunctions.cleanUpDbObject(db)
 mfTransactions = list(db.mfTransactions)
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues
 # adjusting for redemptions
 adjTransactions = ReportHelperFunctions.getRedemptionAdjustedTransactions(mfTransactions)
+
 
 print('Without keeping redemptions in mind,')
 totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE_SIP)
