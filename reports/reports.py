@@ -30,11 +30,11 @@ class Reports:
         print('Total number of funds invested in: ', len(allFunds))
         print('Total number of folios invested in: ', len(allFolios))
         
-        for x in allAMCs:
+        for amc in allAMCs:
             print()
-            amctr = {z for z in purchaseTransactions if z.amc==x}
+            amctr = {z for z in purchaseTransactions if z.amc==amc}
             amt = sum(map(lambda z: z.amount, amctr))  
-            print(f'  - {x}: {round(amt,2)}')
+            print(f'  - {amc}: {round(amt,2)}')
 
             funds = set(list(map(lambda z: z.scheme, amctr)))
             for y in funds:
@@ -45,6 +45,19 @@ class Reports:
     
     def calculateMCNAVSummary(purchaseTransactions):
         print('Market Cap category distribution:')
+        mcCategories = Constants.FundsByMC.keys()
+        totalAmt = sum(map(lambda x:x.amount, purchaseTransactions))
+        print(len(purchaseTransactions))
+        print(totalAmt)
+
+        for category in mcCategories:
+            print()
+            ctr = {x for x in purchaseTransactions if x.scheme in Constants.FundsByMC[category]}
+            amt = sum(map(lambda z: z.amount, ctr))  
+            print(f'{category}: {amt} ({round(amt*100/totalAmt, 2)}%)')
+            print(category)
+            print(len(ctr))
+            print(amt)
 
     def calculateTransactionsSummary(adjTransactions):
         print('Adjusting for redemptions,')
