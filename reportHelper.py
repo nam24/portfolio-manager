@@ -26,7 +26,7 @@ class ReportHelperFunctions:
                 ))
 
     def CleanUpDbObject(db):
-        # This arises from Mirae Assets reporting Refund in one line 
+        # This is to deal with Mirae Assets reporting Refund in one line 
         # instead of 2 (one +ve and one -ve) transactions
         mfTransactions = {x for x in db.mfTransactions if "Refund" not in x.description }
     
