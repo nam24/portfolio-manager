@@ -27,11 +27,13 @@ class Constants:
         'PGIM India Midcap Opportunities Fund - Direct Plan - Growth',
         'Kotak Emerging Equity Fund- Direct Plan - Growth',
         'Mirae Asset Midcap Fund Direct Plan - Growth',
+        'Quant Mid Cap Fund - Growth',
     ]
     SMALLCAP_FUNDS = [
         'Axis Small Cap Fund Direct Growth',
         'Kotak Small Cap Fund - Direct Plan - Growth (Erstwhile Kotak Mid-Cap)',
         'Quant Small Cap Fund - Direct Plan Growth',
+        'Canara Robeco Small Cap Fund - Direct Growth',
     ]
     LARGEMIDCAP_FUNDS = [
         'Axis Growth Opportunities Fund Direct Growth',
@@ -42,7 +44,7 @@ class Constants:
         'Quant Active Fund - Growth',
     ]
     FLEXICAP_FUNDS = [
-
+        'PGIM India Flexi Cap Fund - Direct Plan - Growth',
     ]
     FOCUSED_FUNDS = [
         'Axis Focused 25 Fund - Direct Plan - GROWTH',
