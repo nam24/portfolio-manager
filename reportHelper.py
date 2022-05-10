@@ -1,7 +1,5 @@
-from datetime import datetime
-from numpy import sort
-from dbConstants import DBConstants
-from objects import Db, MFTransactions
+from dbConstants import Constants
+from objects import MFData
 
 class ReportHelperFunctions:
     def getTotalAmountByTransactionType(mfTransactions, type):
@@ -19,20 +17,20 @@ class ReportHelperFunctions:
                         x
                     ), 
                     [
-                        DBConstants.MISC,
-                        DBConstants.PURCHASE_SIP, 
-                        DBConstants.PURCHASE, 
-                        DBConstants.REVERSAL, 
-                        DBConstants.STAMP_DUTY_TAX
+                        Constants.MISC,
+                        Constants.PURCHASE_SIP, 
+                        Constants.PURCHASE, 
+                        Constants.REVERSAL, 
+                        Constants.STAMP_DUTY_TAX
                     ]
                 ))
 
-    def cleanUpDbObject(db):
+    def cleanUpDbObject(mfData):
         # This is to deal with Mirae Assets reporting Refund in one line 
         # instead of 2 (one +ve and one -ve) transactions
-        mfTransactions = {x for x in db.mfTransactions if "Refund" not in x.description }
+        mfTransactions = {x for x in mfData.mfTransactions if "Refund" not in x.description }
     
-        return Db(mfTransactions, db.mfInfo, db.mfValues)
+        return MFData(mfTransactions, mfData.mfInfo, mfData.mfValues)
 
     def getRedemptionAdjustedTransactions(mfTransactions):
         # To simplify this process, import 'without zero balance folios' from cams
@@ -40,8 +38,8 @@ class ReportHelperFunctions:
         # for each folio, get total number of units redeemed
         # start subtracting units from increasing date purchase transactions
         # remove transactions which are redeemed fully
-        purchaseTransactions = list({x for x in mfTransactions if x.type in [DBConstants.PURCHASE, DBConstants.PURCHASE_SIP]})
-        redemptionTransactions = {x for x in mfTransactions if x.type == DBConstants.REDEMPTION}
+        purchaseTransactions = list({x for x in mfTransactions if x.type in [Constants.PURCHASE, Constants.PURCHASE_SIP]})
+        redemptionTransactions = {x for x in mfTransactions if x.type == Constants.REDEMPTION}
 
         for red in redemptionTransactions:
             redUnits = round(red.units, 3) * -1
@@ -65,6 +63,6 @@ class ReportHelperFunctions:
             # What to do with case where same transaction dates but different NAV dates?
             # For now will assume it taken care of
 
-        others = list({x for x in mfTransactions if x.type not in [DBConstants.PURCHASE, DBConstants.PURCHASE_SIP, DBConstants.REDEMPTION]})
+        others = list({x for x in mfTransactions if x.type not in [Constants.PURCHASE, Constants.PURCHASE_SIP, Constants.REDEMPTION]})
 
         return purchaseTransactions + others

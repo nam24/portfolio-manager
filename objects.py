@@ -1,4 +1,4 @@
-class Db:
+class MFData:
     def __init__(self, mfTransactions, mfInfo, mfValues): # add more if more tables
         self.mfTransactions = mfTransactions
         self.mfInfo = mfInfo

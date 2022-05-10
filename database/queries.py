@@ -1,4 +1,4 @@
-from dbConstants import DBConstants
+from dbConstants import Constants
 
 class Queries:
     def dropTableQ(tableName):
@@ -8,7 +8,7 @@ class Queries:
         return "ALTER TABLE " + tableName + " RENAME COLUMN " + oldColName + " TO " + newColName + ";"
 
     def importCSVQ(tableName, targetFileName):
-        return "COPY " + tableName + " FROM '" + DBConstants.filesLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
+        return "COPY " + tableName + " FROM '" + Constants.filesLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
 
     def getAllFromTable(tableName):
         return "select * from " + tableName + ";"

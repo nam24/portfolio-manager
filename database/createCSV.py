@@ -1,5 +1,5 @@
 from applescript import tell
-from dbConstants import DBConstants
+from dbConstants import Constants
 
 # This script creates CSV files using a cli tool- 
 # (1) detailed with all transactions (cas.csv) and 
@@ -10,7 +10,7 @@ from dbConstants import DBConstants
 
 class CreateCSV:
     def createCSVFromPDF():
-        switchDirCmd = 'cd ' + DBConstants.filesLocation
+        switchDirCmd = 'cd ' + Constants.filesLocation
         exportFullCSVCmd = 'casparser -o cas.csv -p abcdefgh12 cas.pdf'
         exportSummaryCSVCmd = 'casparser -o cas-summary.csv -p abcdefgh12 -s -a cas.pdf'
         tell.app('Terminal', 'do script "' + switchDirCmd + '"' + 'in window 1') 

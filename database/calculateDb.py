@@ -1,8 +1,8 @@
 from time import sleep
 from database.databaseHelper import DatabaseHelperFunctions
-from objects import MFTransactions, MFInfo, MFValues, Db
+from objects import MFTransactions, MFInfo, MFValues, MFData
 from database.createCSV import CreateCSV
-from dbConstants import DBConstants
+from dbConstants import Constants
 from database.queries import Queries
 
 class CalculateDb:
@@ -24,9 +24,9 @@ class CalculateDb:
 
         # drop pre-existing tables
         # can make this optional when we find a way to retain tables
-        cursor.execute(Queries.dropTableQ(DBConstants.mfTransactions))
-        cursor.execute(Queries.dropTableQ(DBConstants.mfInfo))
-        cursor.execute(Queries.dropTableQ(DBConstants.mfValues))
+        cursor.execute(Queries.dropTableQ(Constants.mfTransactions))
+        cursor.execute(Queries.dropTableQ(Constants.mfInfo))
+        cursor.execute(Queries.dropTableQ(Constants.mfValues))
 
         # Create MF tables:
         # mfTransactions 
@@ -38,25 +38,25 @@ class CalculateDb:
         # This is a useless step at this point because the simpler way will be to extract
         # this data directly from csv (no need to create postgres db).
         # In any case, it doesn't make sense to have this functionality here. 
-        cursor.execute(Queries.getAllFromTable(DBConstants.mfTransactions))
+        cursor.execute(Queries.getAllFromTable(Constants.mfTransactions))
         data = cursor.fetchall()
         print("\n\n")
         mfTransactions = []
         for tuple in data:
             mfTransactions.append(MFTransactions(tuple))
 
-        cursor.execute(Queries.getAllDisctinctFromTable(DBConstants.mfInfo))
+        cursor.execute(Queries.getAllDisctinctFromTable(Constants.mfInfo))
         data = cursor.fetchall()
         print("\n\n")
         mfInfo = []
         for tuple in data:
             mfInfo.append(MFInfo(tuple))
 
-        cursor.execute(Queries.getAllFromTable(DBConstants.mfValues))
+        cursor.execute(Queries.getAllFromTable(Constants.mfValues))
         data = cursor.fetchall()
         print("\n\n")
         mfValues = []
         for tuple in data:
             mfValues.append(MFValues(tuple))
 
-        return Db(mfTransactions, mfInfo, mfValues)
+        return MFData(mfTransactions, mfInfo, mfValues)

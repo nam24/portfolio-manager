@@ -1,4 +1,4 @@
-class DBConstants:
+class Constants:
     filesLocation = '/Users/namrata/Documents/PM/Files/'
 
     # Postgresql tables
