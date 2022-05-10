@@ -2,7 +2,6 @@ from time import sleep
 from objects import MFTransactions, MFInfo, MFValues, Db
 from createCSV import CreateCSV
 from dbConstants import DBConstants
-from helper import HelperFunctions
 from queries import Queries
 
 class CalculateDb:

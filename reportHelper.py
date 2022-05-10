@@ -7,19 +7,32 @@ from objects import MFTransactions
 class HelperFunctions:
     def getTotalAmountByTransactionType(mfTransactions, type):
         def filterByType(x):
+            # Added for total amt code, so that refund doesn't get added
+            # This arises from Mirae Assets reporting Refund in one line 
+            # instead of 2 (one +ve and one -ve) transactions
+            if(type == DBConstants.MISC):
+                if("Refund" in x.description):
+                    return 0 
             if(x.type == type):
                 return x.amount
+            
             return 0
 
         return sum(map(filterByType, mfTransactions))
     
     def getCurrentTotalAmt(mfTransactions):
-        sum = sum(map(
+        return sum(map(
                     lambda x: HelperFunctions.getTotalAmountByTransactionType(
                         mfTransactions, 
                         x
                     ), 
-                    DBConstants.transactionTypes
+                    [
+                        DBConstants.MISC, # if description contains "Refund", ignore that
+                        DBConstants.PURCHASE_SIP, 
+                        DBConstants.PURCHASE, 
+                        DBConstants.REVERSAL, 
+                        DBConstants.STAMP_DUTY_TAX
+                        ]
                 ))
 
     def getDbConnectionObject(database, user):

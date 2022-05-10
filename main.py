@@ -1,6 +1,6 @@
 from calculateDb import CalculateDb
 from dbConstants import DBConstants
-from helper import HelperFunctions
+from reportHelper import HelperFunctions
 from queries import Queries
 
 conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
@@ -12,11 +12,6 @@ mfTransactions = db.mfTransactions
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues
 
-# how to treat redemptions?
-# compare units in folio and scheme subtract from 1st?---> complex
-# sum all except redemption. Rest of the claculation will require manual input
-# have another function for redeemed funds
-  
 totalSIP = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE_SIP)
 print(totalSIP)
 
@@ -40,3 +35,8 @@ print(HelperFunctions.getCurrentTotalAmt(mfTransactions))
 # print all 3 tables in excel and calculated figures as well
 # get a txt report
 # show graphs in report??
+
+# how to treat redemptions?
+# compare units in folio and scheme subtract from 1st?---> complex
+# sum all except redemption. Rest of the claculation will require manual input
+# have another function for redeemed funds
