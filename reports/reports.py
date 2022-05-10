@@ -1,6 +1,6 @@
 from constants import Constants
 from reports.reportHelper import ReportHelperFunctions
-
+# currency formatting
 class Reports:
     def calculateReports(mfData):
         # 1. Clean up the data
@@ -14,22 +14,13 @@ class Reports:
         purchaseTransactions = {x for x in adjTransactions if x.type in [Constants.PURCHASE, Constants.PURCHASE_SIP, Constants.REVERSAL]}
         
         # Get top level fund nav summary
-        Reports.calculateTopLevelNAVSummary(purchaseTransactions)
+        Reports.calculateFundsNAVSummary(purchaseTransactions)
         # get market cap summary
         # get transactions summary
-        print('Adjusting for redemptions,')
-        totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, [Constants.PURCHASE_SIP])
-        totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, [Constants.PURCHASE])
-        total = totalSIP + totalLumpSum
-        totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(
-                            adjTransactions, 
-                            [Constants.STAMP_DUTY_TAX, Constants.MISC, Constants.STT_TAX]
-                        )
-        print('Total amount invested through SIPs: ', round(totalSIP, 2), ' (', round(totalSIP*100/total,2), '% )')
-        print('Total amount invested through lumpsum: ', round(totalLumpSum, 2), ' (', round(totalLumpSum*100/total,2),'% )\n')
-        print('Total other (stamp duty, transaction charges, redemption STT_Tax): ', round(totalStampDuty, 3))
+        Reports.calculateTransactionsSummary(adjTransactions)
+
         
-    def calculateTopLevelNAVSummary(purchaseTransactions):
+    def calculateFundsNAVSummary(purchaseTransactions):
         totalAmountInvested = sum(map(lambda x: x.amount, purchaseTransactions))
         print('Total amount invested: ', round(totalAmountInvested, 2))
         allAMCs = set(list(map(lambda x: x.amc, purchaseTransactions)))
@@ -51,6 +42,22 @@ class Reports:
                 amt = sum(map(lambda z: z.amount, fundtr))  
                 print(f'    * {y}: {round(amt,2)}')
         print()
+    
+    def calculateTransactionsSummary(adjTransactions):
+        print('Adjusting for redemptions,')
+        totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, [Constants.PURCHASE_SIP])
+        totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, [Constants.PURCHASE])
+        total = totalSIP + totalLumpSum
+        totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(
+                            adjTransactions, 
+                            [Constants.STAMP_DUTY_TAX, Constants.MISC, Constants.STT_TAX]
+                        )
+        print(f'Total amount invested through SIPs: {round(totalSIP, 2)} ({round(totalSIP*100/total,2)}%)')
+        print(f'Total amount invested through lumpsum: {round(totalLumpSum, 2)} ({round(totalLumpSum*100/total,2)}%)')
+        print(f'Total others (stamp duty, transaction charges, redemption STT_Tax): {round(totalStampDuty, 2)}')
+
+    # def calculateMCNAVSummary(purchaseTransactions):
+
 
         # print('Without keeping redemptions in mind,')
         # totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, Constants.PURCHASE_SIP)
