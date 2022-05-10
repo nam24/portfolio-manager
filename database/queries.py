@@ -1,4 +1,4 @@
-from dbConstants import Constants
+from constants import Constants
 
 class Queries:
     def dropTableQ(tableName):

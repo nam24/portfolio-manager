@@ -1,5 +1,5 @@
 from applescript import tell
-from dbConstants import Constants
+from constants import Constants
 
 # This script creates CSV files using a cli tool- 
 # (1) detailed with all transactions (cas.csv) and 
