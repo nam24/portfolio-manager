@@ -72,8 +72,8 @@ class Reports:
                 # currency formatting
                 # fetch all long term capital gains eligible purchase transactions
                 # print this data in excel
+                # add filename arg
                 # proper documentation so that no time gone next time
-                # adding args to main.py
                 
                 # adding sanity checks
                 # testing/ adding checks that csv is correct
@@ -86,6 +86,7 @@ class Reports:
                 # get a txt report
                 # no. of folios by fund
                 # print all 3 tables in excel
+                # adding args to main.py
 
         # Done
                 # get total amount invested
