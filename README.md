@@ -2,7 +2,7 @@
 
 Manage investments portfolio
 
-The source pdf (cas.pdf) with password 'abcdefgh12' should be saved in the 'Files' folder.
+The source pdf (cas.pdf/ filename) with password 'abcdefgh12' should be saved in the 'Files' folder.
 Processed csv files will be saved in the same location.
 
 python3 main.py
