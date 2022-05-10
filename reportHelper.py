@@ -29,7 +29,5 @@ class ReportHelperFunctions:
         # This arises from Mirae Assets reporting Refund in one line 
         # instead of 2 (one +ve and one -ve) transactions
         mfTransactions = {x for x in db.mfTransactions if "Refund" not in x.description }
-        mfInfo = db.mfInfo
-        mfValues = db.mfValues
     
-        return Db(mfTransactions, mfInfo, mfValues)
+        return Db(mfTransactions, db.mfInfo, db.mfValues)
