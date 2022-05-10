@@ -2,7 +2,7 @@
 Manage investments portfolio
 
 Run main.py
-Args:
+Args (wip):
 
 1. newFile: boolean
 2. fileName: string
