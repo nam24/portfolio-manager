@@ -1,5 +1,8 @@
+from datetime import datetime
 from constants import Constants
 from reports.reportHelper import ReportHelperFunctions
+from dateutil.relativedelta import relativedelta
+
 
 class Reports:
     def calculateReports(mfData):
@@ -18,6 +21,8 @@ class Reports:
         Reports.calculateMCNAVSummary(purchaseTransactions)
         # get transactions summary
         Reports.calculateTransactionsSummary(adjTransactions)
+        # LTCG: Long Term Capital Gain
+        Reports.calculateLTCGeligibleTransactions(purchaseTransactions)
 
         
     def calculateFundsNAVSummary(purchaseTransactions):
@@ -68,12 +73,35 @@ class Reports:
         print(f'Total others (stamp duty, transaction charges, redemption STT_Tax): {round(totalStampDuty, 2)}')
         print()
 
+    def calculateLTCGeligibleTransactions(purchaseTransactions):
+        # LTCG: Long Term Capital Gain
+        limit = datetime.date(datetime.now() - relativedelta(years=1, days=2))
+        ltcgEligible = list({x for x in purchaseTransactions if 
+                x.transactionDate<limit and x.scheme not in Constants.ELSS_FUNDS
+                })
+        ltcgEligible.sort(key=lambda x:x.transactionDate)
+
+        print('Long Term Capital Gain Eligible Transactions (non-ELSS):')
+        for k in ltcgEligible:
+            print(f'{k.transactionDate} : {k.scheme} ({k.folio}) : {k.amount} : {k.units}')
+        print()
+        
+        limitELSS = datetime.date(datetime.now() - relativedelta(years=3, days=2))
+        tcgEligibleELSS = list({x for x in purchaseTransactions if 
+                x.transactionDate<limitELSS and x.scheme in Constants.ELSS_FUNDS
+                })
+        tcgEligibleELSS.sort(key=lambda x:x.transactionDate)
+
+        print('Long Term Capital Gain Eligible Transactions (ELSS):')
+        for k in tcgEligibleELSS:
+            print(f'{k.transactionDate} : {k.scheme} ({k.folio}) : {k.amount} : {k.units}')
+        print()
+
         # Priority
                 # currency formatting
                 # fetch all long term capital gains eligible purchase transactions
                 # print this data in excel
-                # add filename arg
-                # proper documentation so that no time gone next time
+                # treatment of reversals in LTCG calculation-- not needed I think
                 
                 # adding sanity checks
                 # testing/ adding checks that csv is correct
@@ -95,6 +123,8 @@ class Reports:
                 # get total amount invested by AMC
                 # get total amount invested by scheme
                 # get % distribution in LC/MC/SC/L&MC...
+                # add filename arg
+                # proper documentation so that no time gone next time
 
                 # how to treat redemptions?
                 # compare units in folio and scheme subtract from 1st?---> complex
