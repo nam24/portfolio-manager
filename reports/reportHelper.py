@@ -2,29 +2,11 @@ from constants import Constants
 from objects import MFData
 
 class ReportHelperFunctions:
-    def getTotalAmountByTransactionType(mfTransactions, type):
-        def filterByType(x):
-            if(x.type == type):
-                return x.amount
-            return 0
-
-        return sum(map(filterByType, mfTransactions))
+    def getTotalAmountByTransactionType(transactions, types):
+        tr = {x for x in transactions if x.type in types}
+        
+        return sum(map(lambda x:x.amount, tr))
     
-    def getCurrentTotalAmt(mfTransactions):
-        return sum(map(
-                    lambda x: ReportHelperFunctions.getTotalAmountByTransactionType(
-                        mfTransactions, 
-                        x
-                    ), 
-                    [
-                        # Constants.MISC,
-                        Constants.PURCHASE_SIP, 
-                        Constants.PURCHASE, 
-                        Constants.REVERSAL, 
-                        # Constants.STAMP_DUTY_TAX
-                    ]
-                ))
-
     def cleanUpDbObject(mfData):
         # This is to deal with Mirae Assets reporting Refund in one line 
         # instead of 2 (one +ve and one -ve) transactions

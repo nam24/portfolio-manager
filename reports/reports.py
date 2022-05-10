@@ -24,17 +24,17 @@ class Reports:
             tr = {z for z in adjTransactions if z.amc==x}
             print()
             amt = sum(map(lambda z: z.amount, tr))
-            # print(f'  - {x} : {round(amt,2)}')
+            print(f'  - {x} : {round(amt,2)}')
             funds = set(list(map(lambda z: z.scheme, tr)))
-            # for y in funds:
-                # print('    *', y)
+            for y in funds:
+                print('    *', y)
 
 
         print()
         print('Adjusting for redemptions,')
         totalAmountInvested = sum(map(lambda x: x.amount, purchaseTransactions))
-        totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, Constants.PURCHASE_SIP)
-        totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, Constants.PURCHASE)
+        totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, [Constants.PURCHASE_SIP])
+        totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(purchaseTransactions, [Constants.PURCHASE])
         total = totalSIP + totalLumpSum
         totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(
                             adjTransactions, 
@@ -42,7 +42,7 @@ class Reports:
                         )
         print('Total amount invested: ', round(totalAmountInvested, 2))
         print('Total amount invested through SIPs: ', round(totalSIP, 2), ' (', round(totalSIP*100/total,2), '% )')
-        print('Total amount invested through lumpsum: ', round(totalLumpSum, 2), ' (', round(totalLumpSum*100/total,2),'% )')
+        print('Total amount invested through lumpsum: ', round(totalLumpSum, 2), ' (', round(totalLumpSum*100/total,2),'% )\n')
         print('Total other (stamp duty, transaction charges, redemption STT_Tax): ', round(totalStampDuty, 3))
         
 
