@@ -1,3 +1,4 @@
+from pickletools import long1
 from calculateDb import CalculateDb
 from databaseHelper import DatabaseHelperFunctions
 from reportHelper import ReportHelperFunctions
@@ -13,16 +14,19 @@ mfTransactions = db.mfTransactions
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues
 
+print('Without keeping redemptions in mind,')
 totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE_SIP)
-print(totalSIP)
+print('Total amount invested through SIPs is', round(totalSIP, 3))
 
 totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE)
-print(totalLumpSum)
+print('Total amount invested through lumpsum is', round(totalLumpSum, 3))
 
 totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.STAMP_DUTY_TAX)
-print(totalStampDuty)
+print('Total stamp duty is', round(totalStampDuty, 3))
 
-print(ReportHelperFunctions.getCurrentTotalAmt(mfTransactions))
+totalAmountInvested = ReportHelperFunctions.getCurrentTotalAmt(mfTransactions)
+print('Total amount invested is', round(totalAmountInvested, 3))
+
 
 # get total amount invested
 # get total amount invested by scheme
