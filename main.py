@@ -8,7 +8,7 @@ conn = DatabaseHelperFunctions.getDbConnectionObject('finance', 'namrata')
 cursor = conn.cursor()
 
 db = CalculateDb.calculateDb(conn, 0)
-
+db = ReportHelperFunctions.CleanUpDbObject(db)
 mfTransactions = db.mfTransactions
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues
