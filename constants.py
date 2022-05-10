@@ -19,27 +19,36 @@ class Constants:
     
     LARGECAP_FUNDS = [
         'Axis Bluechip Fund - Direct Growth',
+        'Canara Robeco Blue Chip Equity Fund - Direct Growth',
+        'Mirae Asset Large Cap Fund - Direct Plan - Growth',
     ]
     MIDCAP_FUNDS = [
         'Axis Mid Cap Fund - Direct Growth',
         'PGIM India Midcap Opportunities Fund - Direct Plan - Growth',
         'Kotak Emerging Equity Fund- Direct Plan - Growth',
+        'Mirae Asset Midcap Fund Direct Plan - Growth',
     ]
     SMALLCAP_FUNDS = [
         'Axis Small Cap Fund Direct Growth',
         'Kotak Small Cap Fund - Direct Plan - Growth (Erstwhile Kotak Mid-Cap)',
+        'Quant Small Cap Fund - Direct Plan Growth',
     ]
     LARGEMIDCAP_FUNDS = [
         'Axis Growth Opportunities Fund Direct Growth',
+        'Canara Robeco Emerging Equities - Direct Growth',
+        'Mirae Asset Emerging Bluechip Fund - Direct Plan - Growth',
     ]
     MULTICAP_FUNDS = [
-
+        'Quant Active Fund - Growth',
     ]
     FLEXICAP_FUNDS = [
 
     ]
     FOCUSED_FUNDS = [
         'Axis Focused 25 Fund - Direct Plan - GROWTH',
+        'Quant Infrastructure Fund - Direct Plan Growth',
+        'Mirae Asset Focused Fund - Direct Plan - Growth',
+        'Mirae Asset Healthcare Fund - Direct Plan - Growth',
     ]
     ELSS_FUNDS = [
         'Quant Tax Plan - Direct Plan',
