@@ -5,17 +5,17 @@ class Reports:
     def calculateReports(mfData):
         # 1. Clean up the data
         # 2. Get numbers and print on console/ file
-
         mfData = ReportHelperFunctions.cleanUpDbObject(mfData)
         mfTransactions = mfData.mfTransactions
         # adjusting for redemptions. This contains all stamp duties and misc, though
         adjTransactions = ReportHelperFunctions.getRedemptionAdjustedTransactions(mfTransactions)
-        print('Stamp Duty and other fees have not been included in the below numbers (unless specified).\n')
         purchaseTransactions = {x for x in adjTransactions if x.type in [Constants.PURCHASE, Constants.PURCHASE_SIP, Constants.REVERSAL]}
-        
+
+        print('Stamp Duty and other fees have not been included in the below numbers (unless specified).\n')        
         # Get top level fund nav summary
         Reports.calculateFundsNAVSummary(purchaseTransactions)
         # get market cap summary
+        Reports.calculateMCNAVSummary(purchaseTransactions)
         # get transactions summary
         Reports.calculateTransactionsSummary(adjTransactions)
 
@@ -43,6 +43,9 @@ class Reports:
                 print(f'    * {y}: {round(amt,2)}')
         print()
     
+    def calculateMCNAVSummary(purchaseTransactions):
+        print('Market Cap category distribution:')
+
     def calculateTransactionsSummary(adjTransactions):
         print('Adjusting for redemptions,')
         totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, [Constants.PURCHASE_SIP])
@@ -56,7 +59,6 @@ class Reports:
         print(f'Total amount invested through lumpsum: {round(totalLumpSum, 2)} ({round(totalLumpSum*100/total,2)}%)')
         print(f'Total others (stamp duty, transaction charges, redemption STT_Tax): {round(totalStampDuty, 2)}')
 
-    # def calculateMCNAVSummary(purchaseTransactions):
 
 
         # print('Without keeping redemptions in mind,')
