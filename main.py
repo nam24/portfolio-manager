@@ -9,7 +9,8 @@ conn = DatabaseHelperFunctions.getDbConnectionObject('finance', 'namrata')
 cursor = conn.cursor()
 
 db = CalculateDb.calculateDb(conn, 0)
-db = ReportHelperFunctions.CleanUpDbObject(db)
+db = ReportHelperFunctions.cleanUpDbObject(db)
+k = ReportHelperFunctions.getRedemptionAdjustedDbObject(db)
 mfTransactions = db.mfTransactions
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues
