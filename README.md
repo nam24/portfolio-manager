@@ -1,13 +1,17 @@
 # portfolio-manager
 Manage investments portfolio
 
-Run main.py
-Args (wip):
+The source pdf (cas.pdf) with password 'abcdefgh12' should be saved in the 'Files' folder.
+Processed csv files will be saved in the same location.
 
+python3 main.py
+python3 main.py 1   ...... if new cas file
+
+Args:
 1. newFile: boolean
-2. fileName: string
-3. filePassword: string
-4. filepath: string
+2. fileName: string (wip)
+3. filePassword: string (wip)
+4. filepath: string (wip)
 
 postgresql:
 https://sourabhbajaj.com/mac-setup/PostgreSQL/

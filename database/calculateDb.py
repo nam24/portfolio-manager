@@ -6,10 +6,10 @@ from constants import Constants
 from database.queries import Queries
 
 class CalculateDb:
-    def calculateDb(newCASFile=0):
+    def calculateDb(newCASFile=0, fileName='cas.pdf'):
         # If we want to create new csv files from pdf
         if(newCASFile):
-            CreateCSV.createCSVFromPDF()
+            CreateCSV.createCSVFromPDF(fileName)
             sleep(15)
 
         # Populates the postgresql database from cas.csv
