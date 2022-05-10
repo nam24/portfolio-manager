@@ -10,10 +10,11 @@ cursor = conn.cursor()
 
 db = CalculateDb.calculateDb(conn, 0)
 db = ReportHelperFunctions.cleanUpDbObject(db)
-k = ReportHelperFunctions.getRedemptionAdjustedDbObject(db)
-mfTransactions = db.mfTransactions
+mfTransactions = list(db.mfTransactions)
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues
+# adjusting for redemptions
+adjTransactions = ReportHelperFunctions.getRedemptionAdjustedTransactions(mfTransactions)
 
 print('Without keeping redemptions in mind,')
 totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE_SIP)

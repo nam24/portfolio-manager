@@ -1,3 +1,4 @@
+from datetime import datetime
 from numpy import sort
 from dbConstants import DBConstants
 from objects import Db, MFTransactions
@@ -33,23 +34,37 @@ class ReportHelperFunctions:
     
         return Db(mfTransactions, db.mfInfo, db.mfValues)
 
-    def getRedemptionAdjustedDbObject(db):
+    def getRedemptionAdjustedTransactions(mfTransactions):
         # To simplify this process, import 'without zero balance folios' from cams
         # Find folios which have redemption
         # for each folio, get total number of units redeemed
         # start subtracting units from increasing date purchase transactions
         # remove transactions which are redeemed fully
-        mfTransactions = db.mfTransactions
-        purchaseTransactions = {x for x in mfTransactions if x.type in [DBConstants.PURCHASE, DBConstants.PURCHASE_SIP]}
+        purchaseTransactions = list({x for x in mfTransactions if x.type in [DBConstants.PURCHASE, DBConstants.PURCHASE_SIP]})
         redemptionTransactions = {x for x in mfTransactions if x.type == DBConstants.REDEMPTION}
 
         for red in redemptionTransactions:
-            purchases = {x for x in purchaseTransactions if x.folio == red.folio and x.scheme == red.scheme}
-            purchases = list(map(lambda x: x.transactionDate, purchases)) # must be sorted in ascending order
-            print(purchases.sort())
-            print()
-            print()
-        # print(redemptionFolios)
+            redUnits = round(red.units, 3) * -1
+            # must be sorted in ascending order of date/ transaction
+            purchases = list({x for x in purchaseTransactions if x.folio == red.folio and x.scheme == red.scheme})
+            purchases = sorted(purchases, key=lambda x:x.transactionDate)
+            others = list({x for x in purchaseTransactions if x.folio != red.folio or x.scheme != red.scheme})
+            
+            while redUnits>0:
+                units = round(purchases[0].units,3)
+                if(redUnits==units):
+                    purchases.pop(0)
+                    break
+                elif(redUnits<units):
+                    purchases[0].units = round(units-redUnits, 3)
+                    break
+                redUnits = round( redUnits-units, 3)
+                purchases.pop(0)
 
+            purchaseTransactions = others + purchases
+            # What to do with case where same transaction dates but different NAV dates?
+            # For now will assume it taken care of
 
-        return Db(mfTransactions, db.mfInfo, db.mfValues)
+        others = list({x for x in mfTransactions if x.type not in [DBConstants.PURCHASE, DBConstants.PURCHASE_SIP, DBConstants.REDEMPTION]})
+
+        return purchaseTransactions + others
