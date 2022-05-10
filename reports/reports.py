@@ -85,7 +85,7 @@ class Reports:
         for k in ltcgEligible:
             print(f'{k.transactionDate} : {k.scheme} ({k.folio}) : {k.amount} : {k.units}')
         print()
-        
+
         limitELSS = datetime.date(datetime.now() - relativedelta(years=3, days=2))
         tcgEligibleELSS = list({x for x in purchaseTransactions if 
                 x.transactionDate<limitELSS and x.scheme in Constants.ELSS_FUNDS
@@ -99,12 +99,11 @@ class Reports:
 
         # Priority
                 # currency formatting
-                # fetch all long term capital gains eligible purchase transactions
                 # print this data in excel
-                # treatment of reversals in LTCG calculation-- not needed I think
                 
                 # adding sanity checks
-                # testing/ adding checks that csv is correct
+                # testing
+                # adding checks that csv is correct
         
         # Maybe
                 # try and get number of SIPs and their dates and amounts by code
@@ -115,6 +114,8 @@ class Reports:
                 # no. of folios by fund
                 # print all 3 tables in excel
                 # adding args to main.py
+                # treatment of reversals in LTCG calculation-- 
+                #           not needed I think because -ve sign and some simple eyeballing
 
         # Done
                 # get total amount invested
@@ -125,6 +126,7 @@ class Reports:
                 # get % distribution in LC/MC/SC/L&MC...
                 # add filename arg
                 # proper documentation so that no time gone next time
+                # fetch all long term capital gains eligible purchase transactions
 
                 # how to treat redemptions?
                 # compare units in folio and scheme subtract from 1st?---> complex
