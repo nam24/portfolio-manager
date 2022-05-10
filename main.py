@@ -1,9 +1,10 @@
 from calculateDb import CalculateDb
+from databaseHelper import DatabaseHelperFunctions
+from reportHelper import ReportHelperFunctions
 from dbConstants import DBConstants
-from reportHelper import HelperFunctions
 from queries import Queries
 
-conn = HelperFunctions.getDbConnectionObject('finance', 'namrata')
+conn = DatabaseHelperFunctions.getDbConnectionObject('finance', 'namrata')
 cursor = conn.cursor()
 
 db = CalculateDb.calculateDb(conn, 0)
@@ -12,16 +13,16 @@ mfTransactions = db.mfTransactions
 mfInfo = db.mfInfo # deja vu
 mfValues = db.mfValues
 
-totalSIP = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE_SIP)
+totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE_SIP)
 print(totalSIP)
 
-totalLumpSum = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE)
+totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.PURCHASE)
 print(totalLumpSum)
 
-totalStampDuty = HelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.STAMP_DUTY_TAX)
+totalStampDuty = ReportHelperFunctions.getTotalAmountByTransactionType(mfTransactions, DBConstants.STAMP_DUTY_TAX)
 print(totalStampDuty)
 
-print(HelperFunctions.getCurrentTotalAmt(mfTransactions))
+print(ReportHelperFunctions.getCurrentTotalAmt(mfTransactions))
 
 # get total amount invested
 # get total amount invested by scheme
