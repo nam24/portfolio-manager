@@ -7,6 +7,8 @@ This script utilizes cas pdf to:
 
 More analytics to be added based on requirement.
 
+When running for the first time:
+
 The source pdf (default: cas.pdf) with password filePassword (default: 'abcdefgh12') should be saved in fileLocation
 
 python3 main.py filesLocation newCasFile fileName filePassword
