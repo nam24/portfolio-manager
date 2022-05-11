@@ -17,3 +17,5 @@ class DatabaseHelperFunctions:
         stopConnectionCmd = 'brew services stop postgresql'
         tell.app('Terminal', 'do script "' + stopConnectionCmd + '"' + 'in window 1') 
 
+# <https://sourabhbajaj.com/mac-setup/PostgreSQL/>
+# <https://dataschool.com/learn-sql/how-to-start-a-postgresql-server-on-mac-os-x/>
