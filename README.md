@@ -1,25 +1,38 @@
-# portfolio-manager
+# Portfolio Management Utility
 
-Manage investments portfolio
+## Get top level analytics for mutual fund portfolios
 
-The source pdf (cas.pdf/ filename) with password 'abcdefgh12' should be saved in the 'Files' folder.
-Processed csv files will be saved in the same location.
+### This script utilizes cas pdf to
 
-python3 main.py
-python3 main.py 1 filename  ...... if new cas file
+1. get aggregated numbers and summaries- to help manage spread out mutual fund invesmtents.
+2. get a list of long-term capital gains eligible purchases (ELSS and non-ELSS)
+3. export these numbers to a excel
 
-Args:
+More analytics to be added based on requirement.
 
-1. newFile: boolean
-2. fileName: string
-3. filePassword: string (wip)
-4. filepath: string (wip)
+### Running the script
 
-postgresql:
-<https://sourabhbajaj.com/mac-setup/PostgreSQL/>
-<https://dataschool.com/learn-sql/how-to-start-a-postgresql-server-on-mac-os-x/>
+When running for the first time (or with a new cas pdf), all arguments must be given as input:
 
-Keep checking for:
+```python3 main.py filesLocation newCasFile fileName filePassword```
 
-1. new transaction types
-2. new funds for category mapping
+Once csv files have been created, they may be used to run analysis without a cas pdf:
+
+```python3 main.py filesLocation```
+
+#### Args
+
+```sh
+fileLocation : string  -  location of the directory where csv/ pdf file is stored
+newCASFile   : boolean -  1 when new cas pdf is to be used (1/0 or true/false)  :  (default: false) 
+fileName     : string  -  name of the cas pdf including extension                :  (default: cas.pdf)
+filePassword : string  -  password of the cas pdf                                :  (default: abcdefgh12)
+```
+
+#### Generating a cas pdf
+
+CAS is a "Consolidated Account Statement" issued by CAMS/KFintech. It contains a list of all your investments linked to your email ID & PAN.
+
+1. Go to <https://www.camsonline.com/Investors/Statements/Consolidated-Account-Statement>
+2. Select statement type - Detailed
+3. Input all other fields according to requirement and submit. You will get the pdf on your email within 1 day.

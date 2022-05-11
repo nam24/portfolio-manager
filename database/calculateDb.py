@@ -6,18 +6,22 @@ from constants import Constants
 from database.queries import Queries
 
 class CalculateDb:
-    def calculateDb(newCASFile=0, fileName='cas.pdf'):
+    def calculateDb(
+                filesLocation=Constants.defaultFilesLocation,
+                newCASFile=False,
+                fileName=Constants.defaultFileName,
+                filePassword=Constants.defaultFilePassword):
         # If we want to create new csv files from pdf
         if(newCASFile):
-            CreateCSV.createCSVFromPDF(fileName)
-            sleep(15)
+            CreateCSV.createCSVFromPDF(fileName, filePassword, filesLocation)
+            sleep(15) # while csv files are being generated
 
         # Populates the postgresql database from cas.csv
         # Currently this needs to be done everytime, need to find
         # a way to retain the tables
-        return CalculateDb.calculateMFTablesFromCSVs()
+        return CalculateDb.calculateMFTablesFromCSVs(filesLocation)
         
-    def calculateMFTablesFromCSVs():
+    def calculateMFTablesFromCSVs(filesLocation):
         # DB name = 'finance', user = 'namrata'
         conn = DatabaseHelperFunctions.getDbConnectionObject('finance', 'namrata')
         cursor = conn.cursor()
@@ -32,7 +36,7 @@ class CalculateDb:
         # mfTransactions 
         # mfInfo 
         # mfValues 
-        cursor.execute(Queries.createMFTablesQ())
+        cursor.execute(Queries.createMFTablesQ(filesLocation))
 
         # Get all data from postgres tables and store in Db object which is returned
         # This is a useless step at this point because the simpler way will be to extract

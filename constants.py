@@ -1,5 +1,7 @@
 class Constants:
-    filesLocation = '/Users/namrata/Documents/PM/Files/'
+    defaultFileName = 'cas.pdf'
+    defaultFilePassword = 'abcdefgh12'
+    defaultFilesLocation = '/Users/namrata/Documents/PM/Files'
 
     # Postgresql tables
     mfTransactions = 'mftransactions'

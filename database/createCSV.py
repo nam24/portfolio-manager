@@ -5,14 +5,14 @@ from constants import Constants
 # (1) detailed with all transactions (cas.csv) and 
 # (2) summary of all portfolios and schemes (cas-summary.csv)
 
-# The source pdf (cas.pdf) with password 'abcdefgh12' should be saved in the 'Files' folder
+# The source pdf (default: cas.pdf) with password filePassword (default: 'abcdefgh12') should be saved in fileLocation
 # Processed files will be saved in the same location
 
 class CreateCSV:
-    def createCSVFromPDF(fileName):
-        switchDirCmd = 'cd ' + Constants.filesLocation
-        exportFullCSVCmd = 'casparser -o cas.csv -p abcdefgh12 ' + fileName
-        exportSummaryCSVCmd = 'casparser -o cas-summary.csv -p abcdefgh12 -s -a ' + fileName
+    def createCSVFromPDF(fileName, filePassword, filesLocation):
+        switchDirCmd = 'cd ' + filesLocation
+        exportFullCSVCmd = 'casparser -o cas.csv -p ' + filePassword + ' ' + fileName
+        exportSummaryCSVCmd = 'casparser -o cas-summary.csv -p ' + filePassword + ' -s -a ' + fileName
         tell.app('Terminal', 'do script "' + switchDirCmd + '"' + 'in window 1') 
         tell.app('Terminal', 'do script "' + exportFullCSVCmd + '"' + 'in window 1') 
         tell.app('Terminal', 'do script "' + exportSummaryCSVCmd + '"' + 'in window 1')
