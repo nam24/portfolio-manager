@@ -10,11 +10,10 @@ More analytics to be added based on requirement.
 When running for the first time:
 
 python3 main.py filesLocation newCasFile fileName filePassword
-python3 main.py 1 filename  ...... if new cas file
 
 Args:
 
-1. fileLocation: string, location of the directory where csv/ pdf file is stored
-2. newCASFile: boolean, true if new cas pdf is to be used (default: false)
-3. fileName: string, name of the cas pdf including extension (default: cas.pdf)
-4. filePassword: string, password of the cas pdf (default: abcdefgh12)
+1. fileLocation : string  -  location of the directory where csv/ pdf file is stored
+2. newCASFile   : boolean -  true if new cas pdf is to be used (1/0 or true/false)  :  (default: false) 
+3. fileName     : string  -  name of the cas pdf including extension                :  (default: cas.pdf)
+4. filePassword : string  -  password of the cas pdf                                :  (default: abcdefgh12)
