@@ -106,8 +106,8 @@ class Reports:
         print()
 
         # Priority
-                # descending order preferrably - using grouping
                 # print this data in excel
+                # descending order preferrably - using grouping
                 
                 # adding sanity checks
                 # testing
