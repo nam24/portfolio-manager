@@ -30,3 +30,9 @@ filePassword : string  -  password of the cas pdf                               
 ```
 
 #### Generating a cas pdf
+
+CAS is a "Consolidated Account Statement" issued by CAMS/KFintech. It contains a list of all your investments linked to your email ID & PAN.
+
+1. Go to <https://www.camsonline.com/Investors/Statements/Consolidated-Account-Statement>
+2. Select statement type - Detailed
+3. Input all other fields according to requirement and submit. You will get the pdf on your email within 1 day.
