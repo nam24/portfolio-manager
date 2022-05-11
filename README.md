@@ -4,9 +4,9 @@
 
 ### This script utilizes cas pdf to
 
-    1. get aggregated numbers and summaries- to help manage spread out mutual fund invesmtents.
-    2. get a list of long-term capital gains eligible purchases (ELSS and non-ELSS)
-    3. export these numbers to a excel
+1. get aggregated numbers and summaries- to help manage spread out mutual fund invesmtents.
+2. get a list of long-term capital gains eligible purchases (ELSS and non-ELSS)
+3. export these numbers to a excel
 
 More analytics to be added based on requirement.
 
