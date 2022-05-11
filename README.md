@@ -9,14 +9,12 @@ More analytics to be added based on requirement.
 
 When running for the first time:
 
-The source pdf (default: cas.pdf) with password filePassword (default: 'abcdefgh12') should be saved in fileLocation
-
 python3 main.py filesLocation newCasFile fileName filePassword
 python3 main.py 1 filename  ...... if new cas file
 
 Args:
 
-1. newCASFile: boolean
-2. fileName: string
-3. filePassword: string (wip)
-4. filepath: string (wip)
+1. fileLocation: string, location of the directory where csv/ pdf file is stored
+2. newCASFile: boolean, true if new cas pdf is to be used (default: false)
+3. fileName: string, name of the cas pdf including extension (default: cas.pdf)
+4. filePassword: string, password of the cas pdf (default: abcdefgh12)
