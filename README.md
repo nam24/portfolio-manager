@@ -4,9 +4,9 @@
 
 ### This script utilizes cas pdf to
 
-    - get aggregated numbers and summaries- to help manage spread out mutual fund invesmtents.
-    - get a list of long-term capital gains eligible purchases (ELSS and non-ELSS)
-    - export these numbers to a excel
+    1. get aggregated numbers and summaries- to help manage spread out mutual fund invesmtents.
+    2. get a list of long-term capital gains eligible purchases (ELSS and non-ELSS)
+    3. export these numbers to a excel
 
 More analytics to be added based on requirement.
 
@@ -16,7 +16,8 @@ When running for the first time (or with a new cas pdf), all arguments must be g
 
 ```python3 main.py filesLocation newCasFile fileName filePassword```
 
-Once csv files have been created, they may be used to run analysis without a cas pdf.
+
+Once csv files have been created, they may be used to run analysis without a cas pdf:
 
 ```python3 main.py filesLocation```
 
