@@ -9,7 +9,7 @@ argsKeys = ['scriptName', 'fileLocation', 'newCasFile', 'fileName', 'filePasswor
 args['newCasFile'] = False
 args['fileName'] = Constants.defaultFileName
 args['filePassword'] = Constants.defaultFilePassword
-args['fileLocation'] = Constants.defaultFileLocation
+args['fileLocation'] = Constants.defaultFilesLocation
 for idx, arg in enumerate(sys.argv):
     args[argsKeys[idx]] = arg
 

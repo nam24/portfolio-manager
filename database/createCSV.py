@@ -9,8 +9,8 @@ from constants import Constants
 # Processed files will be saved in the same location
 
 class CreateCSV:
-    def createCSVFromPDF(fileName, filePassword, fileLocation):
-        switchDirCmd = 'cd ' + fileLocation
+    def createCSVFromPDF(fileName, filePassword, filesLocation):
+        switchDirCmd = 'cd ' + filesLocation
         exportFullCSVCmd = 'casparser -o cas.csv -p ' + filePassword + ' ' + fileName
         exportSummaryCSVCmd = 'casparser -o cas-summary.csv -p ' + filePassword + ' -s -a ' + fileName
         tell.app('Terminal', 'do script "' + switchDirCmd + '"' + 'in window 1') 

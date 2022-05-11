@@ -7,8 +7,8 @@ class Queries:
     def renameColumnsQ(tableName, oldColName, newColName):
         return "ALTER TABLE " + tableName + " RENAME COLUMN " + oldColName + " TO " + newColName + ";"
 
-    def importCSVQ(tableName, targetFileName):
-        return "COPY " + tableName + " FROM '" + Constants.defaultFileLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
+    def importCSVQ(tableName, targetFileName, filesLocation):
+        return "COPY " + tableName + " FROM '" + filesLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
 
     def getAllFromTable(tableName):
         return "select * from " + tableName + ";"
@@ -16,7 +16,7 @@ class Queries:
     def getAllDisctinctFromTable(tableName):
         return "select distinct * from " + tableName + ";"
     
-    def createMFValuesTableQ():
+    def createMFValuesTableQ(filesLocation):
         createTempTableQ = '''
             CREATE TEMPORARY TABLE t2(
                 amc VARCHAR(80) NOT NULL,
@@ -53,7 +53,7 @@ class Queries:
             FROM t2;
         '''
 
-        Q2 = createTempTableQ + Queries.importCSVQ("t2", "cas-summary.csv")
+        Q2 = createTempTableQ + Queries.importCSVQ("t2", "cas-summary.csv", filesLocation)
         Q2 = Q2 + createMFValuesQ
         Q2 = Q2 + populateMFValuesQ
         Q2 = Q2 + Queries.dropTableQ("t2")
@@ -66,7 +66,7 @@ class Queries:
     # 3. Populate these tables using temp tables from step 1.
     # 4. Drop the temp table
 
-    def createMFTablesQ():
+    def createMFTablesQ(filesLocation):
         createTempTableQ = '''
             CREATE TEMPORARY TABLE t(
                 amc VARCHAR(80) NOT NULL,
@@ -123,10 +123,10 @@ class Queries:
             FROM t;
         '''
 
-        Q1 = createTempTableQ + Queries.importCSVQ("t", "cas.csv")
+        Q1 = createTempTableQ + Queries.importCSVQ("t", "cas.csv", filesLocation)
         Q1 = Q1 + createMFTransactionsQ + createMFInfoQ
         Q1 = Q1 + populateMFTransactionsQ + populateMFInfoQ
         Q1 = Q1 + Queries.dropTableQ("t")
-        Q2 = Queries.createMFValuesTableQ()
+        Q2 = Queries.createMFValuesTableQ(filesLocation)
 
         return Q1 + Q2
