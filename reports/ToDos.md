@@ -37,6 +37,7 @@
 - fetch all long term capital gains eligible purchase transactions
 - currency formatting
 - adding args to main.py
+- excel for redeemables
 - how to treat redemptions?
     --compare units in folio and scheme subtract from 1st?---> complex
     --sum all except redemption. Rest of the claculation will require manual input

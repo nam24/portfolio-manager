@@ -82,16 +82,34 @@ class Reports:
 
     def calculateLTCGeligibleTransactions(purchaseTransactions):
         # LTCG: Long Term Capital Gain
+        wb = xlwt.Workbook()
+        ws = wb.add_sheet('By Category')
+        for col, val in enumerate([
+                'Transaction Date', 
+                'Scheme', 
+                'Folio',
+                'Amount',
+                'Units'
+            ]):
+            ws.write(0, col, val) # try adding styles for bold
+
         limit = datetime.date(datetime.now() - relativedelta(years=1, days=2))
         ltcgEligible = list({x for x in purchaseTransactions if 
                 x.transactionDate<limit and x.scheme not in Constants.ELSS_FUNDS
                 })
         ltcgEligible.sort(key=lambda x:x.transactionDate)
-
+        row = 1
         print('Long Term Capital Gain Eligible Transactions (non-ELSS):')
         for k in ltcgEligible:
             print(f'{k.transactionDate} : {k.scheme} ({k.folio}) : {k.amount} : {k.units}')
+            ws.write(row, 0, k.transactionDate) 
+            ws.write(row, 1, k.scheme) 
+            ws.write(row, 2, k.folio) 
+            ws.write(row, 3, k.amount) 
+            ws.write(row, 4, k.units) 
+            row+=1
         print()
+        row+=1
 
         limitELSS = datetime.date(datetime.now() - relativedelta(years=3, days=2))
         tcgEligibleELSS = list({x for x in purchaseTransactions if 
@@ -102,7 +120,15 @@ class Reports:
         print('Long Term Capital Gain Eligible Transactions (ELSS):')
         for k in tcgEligibleELSS:
             print(f'{k.transactionDate} : {k.scheme} ({k.folio}) : {k.amount} : {k.units}')
+            ws.write(row, 0, k.transactionDate) 
+            ws.write(row, 1, k.scheme) 
+            ws.write(row, 2, k.folio) 
+            ws.write(row, 3, k.amount) 
+            ws.write(row, 4, k.units) 
+            row+=1
         print()
+
+        wb.save('LTCG Redeemables.xls')
 
     def printExcel(purchaseTransactions):
         wb = xlwt.Workbook()
