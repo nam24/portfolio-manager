@@ -1,6 +1,6 @@
 # Portfolio Management Utility
 
-## Get top level analytics for mutual fund portfolios.
+## Get top level analytics for mutual fund portfolios
 
 ### This script utilizes cas pdf to
 
@@ -13,14 +13,20 @@ More analytics to be added based on requirement.
 ### Running the script
 
 When running for the first time (or with a new cas pdf), all arguments must be given as input:
+
 ```python3 main.py filesLocation newCasFile fileName filePassword```
 
 Once csv files have been created, they may be used to run analysis without a cas pdf.
-python3 main.py filesLocation
 
-Args:
+```python3 main.py filesLocation```
 
+#### Args
+
+```sh
 fileLocation : string  -  location of the directory where csv/ pdf file is stored
 newCASFile   : boolean -  true if new cas pdf is to be used (1/0 or true/false)  :  (default: false) 
 fileName     : string  -  name of the cas pdf including extension                :  (default: cas.pdf)
 filePassword : string  -  password of the cas pdf                                :  (default: abcdefgh12)
+```
+
+#### Generating a cas pdf
