@@ -14,21 +14,17 @@ class Reports:
         purchaseTransactions = {x for x in adjTransactions if x.type in [Constants.PURCHASE, Constants.PURCHASE_SIP, Constants.REVERSAL]}
 
         print('Stamp Duty and other fees have not been included in the below numbers (unless specified).\n')        
+        
+        # get transactions summary
+        Reports.calculateTransactionsSummary(adjTransactions)
         # Get top level fund nav summary
         Reports.calculateFundsNAVSummary(purchaseTransactions)
         # get market cap summary
         Reports.calculateMCNAVSummary(purchaseTransactions)
-        # get transactions summary
-        Reports.calculateTransactionsSummary(adjTransactions)
         # get LTCG: Long Term Capital Gain eligible transactions
         Reports.calculateLTCGeligibleTransactions(purchaseTransactions)
 
-        
     def calculateFundsNAVSummary(purchaseTransactions):
-        def fmt(x):
-            return 'Rs. {:,.2f}'.format(x)
-        totalAmountInvested = sum(map(lambda x: x.amount, purchaseTransactions))
-        print('Total amount invested: ', round(totalAmountInvested, 2))
         allAMCs = set(list(map(lambda x: x.amc, purchaseTransactions)))
         allFunds = set(list(map(lambda x: x.scheme, purchaseTransactions)))
         allFolios = set(list(map(lambda x: x.folio, purchaseTransactions)))
@@ -40,13 +36,13 @@ class Reports:
             print()
             amctr = {z for z in purchaseTransactions if z.amc==amc}
             amt = sum(map(lambda z: z.amount, amctr))  
-            print(f'  - {amc}: {fmt(amt)}')
+            print(f'  - {amc}: {Reports.fmt(amt)}')
 
             funds = set(list(map(lambda z: z.scheme, amctr)))
             for y in funds:
                 fundtr = {z for z in amctr if z.scheme == y}
                 amt = sum(map(lambda z: z.amount, fundtr))  
-                print(f'    * {y}: {fmt(amt)}')
+                print(f'    * {y}: {Reports.fmt(amt)}')
         print()
     
     def calculateMCNAVSummary(purchaseTransactions):
@@ -66,9 +62,8 @@ class Reports:
         print()
 
     def calculateTransactionsSummary(adjTransactions):
-        def fmt(x):
-            return 'Rs. {:,.2f}'.format(x)
-        print('Adjusting for redemptions,')
+        purchaseTransactions = {x for x in adjTransactions if x.type in [Constants.PURCHASE, Constants.PURCHASE_SIP, Constants.REVERSAL]}
+        totalAmountInvested = sum(map(lambda x: x.amount, purchaseTransactions))
         totalSIP = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, [Constants.PURCHASE_SIP])
         totalLumpSum = ReportHelperFunctions.getTotalAmountByTransactionType(adjTransactions, [Constants.PURCHASE])
         total = totalSIP + totalLumpSum
@@ -76,9 +71,11 @@ class Reports:
                             adjTransactions, 
                             [Constants.STAMP_DUTY_TAX, Constants.MISC, Constants.STT_TAX]
                         )
-        print(f'Total amount invested through SIPs: {fmt(totalSIP)} ({round(totalSIP*100/total,2)}%)')
-        print(f'Total amount invested through lumpsum: {fmt(totalLumpSum)} ({round(totalLumpSum*100/total,2)}%)')
-        print(f'Total others (stamp duty, transaction charges, redemption STT_Tax): {fmt(totalStampDuty)}')
+        print('Adjusting for redemptions,')
+        print('Total amount invested: ', Reports.fmt(totalAmountInvested))
+        print(f'Total amount invested through SIPs: {Reports.fmt(totalSIP)} ({round(totalSIP*100/total,2)}%)')
+        print(f'Total amount invested through lumpsum: {Reports.fmt(totalLumpSum)} ({round(totalLumpSum*100/total,2)}%)')
+        print(f'Total others (stamp duty, transaction charges, redemption STT_Tax): {Reports.fmt(totalStampDuty)}')
         print()
 
     def calculateLTCGeligibleTransactions(purchaseTransactions):
@@ -104,3 +101,6 @@ class Reports:
         for k in tcgEligibleELSS:
             print(f'{k.transactionDate} : {k.scheme} ({k.folio}) : {k.amount} : {k.units}')
         print()
+
+    def fmt(x):
+        return 'Rs. {:,.2f}'.format(x)
