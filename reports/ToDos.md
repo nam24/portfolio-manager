@@ -27,18 +27,17 @@
 
 ## Done
 
-    - get total amount invested
-    - Lumpsum vs SIP
-    - top level summary- no. of amc, funds, folios
-    - get total amount invested by AMC
-    - get total amount invested by scheme
-    - get % distribution in LC/MC/SC/L&MC...
-    - add filename arg
-    - proper documentation so that no time gone next time
-    - fetch all long term capital gains eligible purchase transactions
-    - currency formatting
-
-    - how to treat redemptions?
-      --compare units in folio and scheme subtract from 1st?---> complex
-      --sum all except redemption. Rest of the claculation will require manual input
-      --have another function for redeemed funds
+- get total amount invested
+- Lumpsum vs SIP
+- top level summary- no. of amc, funds, folios
+- get total amount invested by AMC
+- get total amount invested by scheme
+- get % distribution in LC/MC/SC/L&MC...
+- add filename arg
+- proper documentation so that no time gone next time
+- fetch all long term capital gains eligible purchase transactions
+- currency formatting
+- how to treat redemptions?
+    --compare units in folio and scheme subtract from 1st?---> complex
+    --sum all except redemption. Rest of the claculation will require manual input
+    --have another function for redeemed funds
