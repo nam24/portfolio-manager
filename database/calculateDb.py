@@ -7,10 +7,10 @@ from database.queries import Queries
 
 class CalculateDb:
     def calculateDb(
+                fileLocation=Constants.defaultFileLocation,
                 newCASFile=False,
                 fileName=Constants.defaultFileName,
-                filePassword=Constants.defaultFilePassword,
-                fileLocation=Constants.defaultFileLocation):
+                filePassword=Constants.defaultFilePassword):
         # If we want to create new csv files from pdf
         if(newCASFile):
             CreateCSV.createCSVFromPDF(fileName, filePassword, fileLocation)

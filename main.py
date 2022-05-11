@@ -5,15 +5,15 @@ from database.calculateDb import CalculateDb
 from reports.reports import Reports
 
 args = dict()
-argsKeys = ['scriptName', 'newCasFile', 'fileName', 'filePassword', 'fileLocation']
-
+argsKeys = ['scriptName', 'fileLocation', 'newCasFile', 'fileName', 'filePassword']
 args['newCasFile'] = False
 args['fileName'] = Constants.defaultFileName
 args['filePassword'] = Constants.defaultFilePassword
 args['fileLocation'] = Constants.defaultFileLocation
-
 for idx, arg in enumerate(sys.argv):
     args[argsKeys[idx]] = arg
+
+print('Inputs:')
 for arg in args:
     print(arg, end = ": ")
     print(args[arg])
