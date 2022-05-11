@@ -2,6 +2,7 @@ from datetime import datetime
 from constants import Constants
 from reports.reportHelper import ReportHelperFunctions
 from dateutil.relativedelta import relativedelta
+import xlwt
 
 class Reports:
     def calculateReports(mfData):
@@ -23,6 +24,9 @@ class Reports:
         Reports.calculateMCNAVSummary(purchaseTransactions)
         # get LTCG: Long Term Capital Gain eligible transactions
         Reports.calculateLTCGeligibleTransactions(purchaseTransactions)
+        # Print excel- category, fund name, amt in that fund
+        Reports.printExcel(purchaseTransactions)
+
 
     def calculateFundsNAVSummary(purchaseTransactions):
         allAMCs = set(list(map(lambda x: x.amc, purchaseTransactions)))
@@ -99,6 +103,29 @@ class Reports:
         for k in tcgEligibleELSS:
             print(f'{k.transactionDate} : {k.scheme} ({k.folio}) : {k.amount} : {k.units}')
         print()
+
+    def printExcel(purchaseTransactions):
+        wb = xlwt.Workbook()
+        ws = wb.add_sheet('By Category')
+        for col, val in enumerate(['Category', 'Scheme', 'Total Invested']):
+            ws.write(0, col, val) # try adding styles for bold
+
+        row=1
+        mcCategories = Constants.FundsByCategory.keys()
+        for category in mcCategories:
+            ctr = list({x for x in purchaseTransactions if x.scheme in Constants.FundsByCategory[category]})
+            schemes = Constants.FundsByCategory[category]
+
+            for scheme in schemes:
+                tr = list({x for x in ctr if x.scheme == scheme})
+                amt = sum(map(lambda x:x.amount, tr))
+                if(amt!=0):
+                    ws.write(row, 0, category) 
+                    ws.write(row, 1, scheme) 
+                    ws.write(row, 2, amt)
+                    row+=1
+
+        wb.save('Funds Summary.xls')
 
     def fmt(x):
         return 'Rs. {:,.2f}'.format(x)
