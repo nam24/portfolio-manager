@@ -7,14 +7,14 @@ This script utilizes cas pdf to:
 
 More analytics to be added based on requirement.
 
-The source pdf (cas.pdf/ filename) with password 'abcdefgh12' should be saved in the 'Files' folder.
+The source pdf (default: cas.pdf) with password filePassword (default: 'abcdefgh12') should be saved in fileLocation
 
-python3 main.py
+python3 main.py <> <> <>
 python3 main.py 1 filename  ...... if new cas file
 
 Args:
 
-1. newFile: boolean
+1. newCASFile: boolean
 2. fileName: string
 3. filePassword: string (wip)
 4. filepath: string (wip)
