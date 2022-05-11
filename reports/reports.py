@@ -3,7 +3,6 @@ from constants import Constants
 from reports.reportHelper import ReportHelperFunctions
 from dateutil.relativedelta import relativedelta
 
-
 class Reports:
     def calculateReports(mfData):
         # 1. Clean up the data
@@ -21,7 +20,7 @@ class Reports:
         Reports.calculateMCNAVSummary(purchaseTransactions)
         # get transactions summary
         Reports.calculateTransactionsSummary(adjTransactions)
-        # LTCG: Long Term Capital Gain
+        # get LTCG: Long Term Capital Gain eligible transactions
         Reports.calculateLTCGeligibleTransactions(purchaseTransactions)
 
         
@@ -100,6 +99,7 @@ class Reports:
         # Priority
                 # currency formatting
                 # print this data in excel
+                # descending order preferrably
                 
                 # adding sanity checks
                 # testing
@@ -116,6 +116,8 @@ class Reports:
                 # adding args to main.py
                 # treatment of reversals in LTCG calculation-- 
                 #           not needed I think because -ve sign and some simple eyeballing
+                # expense ratios
+                # capital gains
 
         # Done
                 # get total amount invested
@@ -132,10 +134,3 @@ class Reports:
                 # compare units in folio and scheme subtract from 1st?---> complex
                 # sum all except redemption. Rest of the claculation will require manual input
                 # have another function for redeemed funds
-      
-      
-       
-        
-        
-
-       
