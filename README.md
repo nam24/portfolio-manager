@@ -7,9 +7,11 @@ This script utilizes cas pdf to:
 
 More analytics to be added based on requirement.
 
-When running for the first time:
+When running for the first time (or with a new cas pdf), all arguments must be given as input:
+```python3 main.py filesLocation newCasFile fileName filePassword```
 
-python3 main.py filesLocation newCasFile fileName filePassword
+Once csv files have been created, they may be used to generate analysis without a cas pdf.
+python3 main.py filesLocation
 
 Args:
 
