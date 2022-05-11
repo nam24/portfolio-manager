@@ -16,7 +16,6 @@ When running for the first time (or with a new cas pdf), all arguments must be g
 
 ```python3 main.py filesLocation newCasFile fileName filePassword```
 
-
 Once csv files have been created, they may be used to run analysis without a cas pdf:
 
 ```python3 main.py filesLocation```
@@ -25,7 +24,7 @@ Once csv files have been created, they may be used to run analysis without a cas
 
 ```sh
 fileLocation : string  -  location of the directory where csv/ pdf file is stored
-newCASFile   : boolean -  true if new cas pdf is to be used (1/0 or true/false)  :  (default: false) 
+newCASFile   : boolean -  1 when new cas pdf is to be used (1/0 or true/false)  :  (default: false) 
 fileName     : string  -  name of the cas pdf including extension                :  (default: cas.pdf)
 filePassword : string  -  password of the cas pdf                                :  (default: abcdefgh12)
 ```
