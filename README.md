@@ -1,28 +1,25 @@
 # portfolio-manager
+
 Manage investments portfolio
 
-Run main.py
+The source pdf (cas.pdf/ filename) with password 'abcdefgh12' should be saved in the 'Files' folder.
+Processed csv files will be saved in the same location.
 
-CLI-based tool: https://github.com/janiniraj/casparser
+python3 main.py
+python3 main.py 1 filename  ...... if new cas file
 
-Usage: casparser [-o output_file.json|output_file.csv] [-p password] [-s] [-a] CAS_PDF_FILE
+Args:
 
-  -o, --output FILE               Output file path. Saves the parsed data as json or csv
-                                  depending on the file extension. For other extensions, the
-                                  summary output is saved. [See note below]
-
-  -s, --summary                   Print Summary of transactions parsed.
-  -p PASSWORD                     CAS password
-  -a, --include-all               Include schemes with zero valuation in the
-                                  summary output
-  --force-pdfminer                Force PDFMiner parser even if MuPDF is
-                                  detected
-
-  --version                       Show the version and exit.
-  -h, --help                      Show this message and exit.
-
-
+1. newFile: boolean
+2. fileName: string
+3. filePassword: string (wip)
+4. filepath: string (wip)
 
 postgresql:
-https://sourabhbajaj.com/mac-setup/PostgreSQL/
-https://dataschool.com/learn-sql/how-to-start-a-postgresql-server-on-mac-os-x/
+<https://sourabhbajaj.com/mac-setup/PostgreSQL/>
+<https://dataschool.com/learn-sql/how-to-start-a-postgresql-server-on-mac-os-x/>
+
+Keep checking for:
+
+1. new transaction types
+2. new funds for category mapping

@@ -1,4 +1,4 @@
-from dbConstants import DBConstants
+from constants import Constants
 
 class Queries:
     def dropTableQ(tableName):
@@ -8,10 +8,63 @@ class Queries:
         return "ALTER TABLE " + tableName + " RENAME COLUMN " + oldColName + " TO " + newColName + ";"
 
     def importCSVQ(tableName, targetFileName):
-        return "COPY " + tableName + " FROM '" + DBConstants.filesLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
+        return "COPY " + tableName + " FROM '" + Constants.filesLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
 
     def getAllFromTable(tableName):
         return "select * from " + tableName + ";"
+        
+    def getAllDisctinctFromTable(tableName):
+        return "select distinct * from " + tableName + ";"
+    
+    def createMFValuesTableQ():
+        createTempTableQ = '''
+            CREATE TEMPORARY TABLE t2(
+                amc VARCHAR(80) NOT NULL,
+                folio VARCHAR(25) NOT NULL,
+                advisor VARCHAR(40),
+                registrar VARCHAR(20),
+                pan VARCHAR(10),
+                scheme VARCHAR(120),
+                isin VARCHAR(15),
+                amfi VARCHAR(8),
+                open FLOAT8,
+                close FLOAT8,
+                value FLOAT8,
+                date DATE NOT NULL,
+                transactions INTEGER
+            );
+        ''' 
+        createMFValuesQ = '''
+            CREATE TABLE mfvalues(
+                amc VARCHAR(80) NOT NULL,
+                folio VARCHAR(25) NOT NULL,
+                registrar VARCHAR(20),
+                scheme VARCHAR(120),
+                open FLOAT8,
+                close FLOAT8,
+                value FLOAT8,
+                date DATE NOT NULL
+            );
+        ''' 
+
+        populateMFValuesQ = '''
+            INSERT INTO mfvalues(amc, folio, registrar, scheme, open, close, value, date)
+            SELECT amc, folio, registrar, scheme, open, close, value, date
+            FROM t2;
+        '''
+
+        Q2 = createTempTableQ + Queries.importCSVQ("t2", "cas-summary.csv")
+        Q2 = Q2 + createMFValuesQ
+        Q2 = Q2 + populateMFValuesQ
+        Q2 = Q2 + Queries.dropTableQ("t2")
+
+        return Q2
+
+    # Main function for creating and populating tables
+    # 1. Create a temp table with same schema as the csv files and populate it.
+    # 2. Create main tables with required schemas.
+    # 3. Populate these tables using temp tables from step 1.
+    # 4. Drop the temp table
 
     def createMFTablesQ():
         createTempTableQ = '''
@@ -70,48 +123,10 @@ class Queries:
             FROM t;
         '''
 
-        Q1 = createTempTableQ + createMFTransactionsQ + createMFInfoQ
-        Q1 = Q1 + Queries.importCSVQ("t", "cas.csv") + populateMFTransactionsQ + populateMFInfoQ
+        Q1 = createTempTableQ + Queries.importCSVQ("t", "cas.csv")
+        Q1 = Q1 + createMFTransactionsQ + createMFInfoQ
+        Q1 = Q1 + populateMFTransactionsQ + populateMFInfoQ
         Q1 = Q1 + Queries.dropTableQ("t")
-
-        createTempTableQ = '''
-            CREATE TEMPORARY TABLE t2(
-                amc VARCHAR(80) NOT NULL,
-                folio VARCHAR(25) NOT NULL,
-                advisor VARCHAR(40),
-                registrar VARCHAR(20),
-                pan VARCHAR(10),
-                scheme VARCHAR(120),
-                isin VARCHAR(15),
-                amfi VARCHAR(8),
-                open FLOAT8,
-                close FLOAT8,
-                value FLOAT8,
-                date DATE NOT NULL,
-                transactions INTEGER
-            );
-        ''' 
-        createMFValuesQ = '''
-            CREATE TABLE mfvalues(
-                amc VARCHAR(80) NOT NULL,
-                folio VARCHAR(25) NOT NULL,
-                registrar VARCHAR(20),
-                scheme VARCHAR(120),
-                open FLOAT8,
-                close FLOAT8,
-                value FLOAT8,
-                date DATE NOT NULL
-            );
-        ''' 
-
-        populateMFValuesQ = '''
-            INSERT INTO mfvalues(amc, folio, registrar, scheme, open, close, value, date)
-            SELECT amc, folio, registrar, scheme, open, close, value, date
-            FROM t2;
-        '''
-
-        Q2 = createTempTableQ + createMFValuesQ
-        Q2 = Q2 + Queries.importCSVQ("t2", "cas-summary.csv") + populateMFValuesQ
-        Q2 = Q2 + Queries.dropTableQ("t2")
+        Q2 = Queries.createMFValuesTableQ()
 
         return Q1 + Q2
