@@ -4,6 +4,7 @@ Get top level analytics for mutual fund portfolios.
 This script utilizes cas pdf to:
     - get aggregated numbers and summaries- to help manage spread out mutual fund invesmtents.
     - get a list of long-term capital gains eligible purchases (ELSS and non-ELSS)
+    - export these numbers to a excel
 
 More analytics to be added based on requirement.
 
