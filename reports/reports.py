@@ -52,6 +52,8 @@ class Reports:
     def calculateMCNAVSummary(purchaseTransactions):
         def fmt(x):
             return 'Rs. {:,.2f}'.format(x)
+        def fmt2(x):
+            return '{:>15}'.format(x)
         print('Market Cap category distribution:')
         mcCategories = Constants.FundsByCategory.keys()
         totalAmt = sum(map(lambda x:x.amount, purchaseTransactions))
@@ -59,7 +61,7 @@ class Reports:
         for category in mcCategories:
             ctr = {x for x in purchaseTransactions if x.scheme in Constants.FundsByCategory[category]}
             amt = sum(map(lambda z: z.amount, ctr))  
-            print(f'{category}: {fmt(amt)} ({round(amt*100/totalAmt, 2)}%)')
+            print(f'{fmt2(category)}: {fmt(amt)} ({round(amt*100/totalAmt, 2)}%)')
         print()
 
     def calculateTransactionsSummary(adjTransactions):
@@ -103,9 +105,8 @@ class Reports:
         print()
 
         # Priority
-                # currency formatting
                 # print this data in excel
-                # descending order preferrably
+                # descending order preferrably - using grouping
                 
                 # adding sanity checks
                 # testing
@@ -135,6 +136,7 @@ class Reports:
                 # add filename arg
                 # proper documentation so that no time gone next time
                 # fetch all long term capital gains eligible purchase transactions
+                # currency formatting
 
                 # how to treat redemptions?
                 # compare units in folio and scheme subtract from 1st?---> complex
