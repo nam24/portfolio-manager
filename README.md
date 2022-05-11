@@ -1,9 +1,13 @@
-# portfolio-manager
+# Portfolio Management Utility
 
-Manage investments portfolio
+Get top level analytics for mutual fund portfolios.
+This script utilizes cas pdf to:
+    - get aggregated numbers and summaries- to help manage spread out mutual fund invesmtents.
+    - get a list of long-term capital gains eligible purchases (ELSS and non-ELSS)
+
+More analytics to be added based on requirement.
 
 The source pdf (cas.pdf/ filename) with password 'abcdefgh12' should be saved in the 'Files' folder.
-Processed csv files will be saved in the same location.
 
 python3 main.py
 python3 main.py 1 filename  ...... if new cas file
@@ -14,12 +18,3 @@ Args:
 2. fileName: string
 3. filePassword: string (wip)
 4. filepath: string (wip)
-
-postgresql:
-<https://sourabhbajaj.com/mac-setup/PostgreSQL/>
-<https://dataschool.com/learn-sql/how-to-start-a-postgresql-server-on-mac-os-x/>
-
-Keep checking for:
-
-1. new transaction types
-2. new funds for category mapping
