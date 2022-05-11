@@ -14,7 +14,7 @@ class CalculateDb:
         # If we want to create new csv files from pdf
         if(newCASFile):
             CreateCSV.createCSVFromPDF(fileName, filePassword, filesLocation)
-            sleep(15)
+            sleep(15) # while csv files are being generated
 
         # Populates the postgresql database from cas.csv
         # Currently this needs to be done everytime, need to find
