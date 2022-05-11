@@ -16,7 +16,6 @@
 4. no. of folios by fund
 5. get number of SIPs and their dates and amounts by code. SIP chart - x axis shows dates in a month and y shows amount
 6. treatment of reversals in LTCG calculation - not needed I think because -ve sign and some simple eyeballing
-7. adding args to main.py
 
 ## Require Manual Updates
 
@@ -37,6 +36,7 @@
 - proper documentation so that no time gone next time
 - fetch all long term capital gains eligible purchase transactions
 - currency formatting
+- adding args to main.py
 - how to treat redemptions?
     --compare units in folio and scheme subtract from 1st?---> complex
     --sum all except redemption. Rest of the claculation will require manual input
