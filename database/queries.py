@@ -8,7 +8,7 @@ class Queries:
         return "ALTER TABLE " + tableName + " RENAME COLUMN " + oldColName + " TO " + newColName + ";"
 
     def importCSVQ(tableName, targetFileName, filesLocation):
-        return "COPY " + tableName + " FROM '" + filesLocation + '/' + targetFileName + "' DELIMITER ',' CSV HEADER;"
+        return "COPY " + tableName + " FROM '" + filesLocation + targetFileName + "' DELIMITER ',' CSV HEADER;"
 
     def getAllFromTable(tableName):
         return "select * from " + tableName + ";"

@@ -1,3 +1,4 @@
+from importlib.abc import FileLoader
 from time import sleep
 from applescript import tell
 from constants import Constants
@@ -11,11 +12,8 @@ from constants import Constants
 
 class CreateCSV:
     def createCSVFromPDF(fileName, filePassword, filesLocation):
-        switchDirCmd = 'cd ' + filesLocation
-        exportFullCSVCmd = 'casparser -o cas.csv -p ' + filePassword + ' ' + fileName
-        exportSummaryCSVCmd = 'casparser -o cas-summary.csv -p ' + filePassword + ' -s -a ' + fileName
-        tell.app('Terminal', 'do script "' + switchDirCmd + '"' + 'in window 1') 
-        sleep(5)
+        exportFullCSVCmd = 'casparser -o ' + filesLocation + 'cas.csv -p ' + filePassword + ' ' + filesLocation + fileName
+        exportSummaryCSVCmd = 'casparser -o ' + filesLocation + 'cas-summary.csv -p ' + filePassword + ' -s -a ' + filesLocation + fileName
         tell.app('Terminal', 'do script "' + exportFullCSVCmd + '"' + 'in window 1') 
         tell.app('Terminal', 'do script "' + exportSummaryCSVCmd + '"' + 'in window 1')
 
