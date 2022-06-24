@@ -5,7 +5,7 @@ from database.calculateDb import CalculateDb
 from reports.reports import Reports
 
 args = dict()
-argsKeys = ['scriptName', 'fileLocation', 'newCasFile', 'fileName', 'filePassword']
+argsKeys = ['scriptName', 'newCasFile', 'fileLocation', 'fileName', 'filePassword']
 args['newCasFile'] = False
 args['fileName'] = Constants.defaultFileName
 args['filePassword'] = Constants.defaultFilePassword
@@ -19,7 +19,7 @@ for arg in args:
     print(args[arg])
 
 # MFData class instance:
-mfData = CalculateDb.calculateDb(args[argsKeys[1]], args[argsKeys[2]], args[argsKeys[3]], args[argsKeys[4]])
+mfData = CalculateDb.calculateDb(args[argsKeys[2]], args[argsKeys[1]], args[argsKeys[3]], args[argsKeys[4]])
 
 # Create report
 Reports.calculateReports(mfData)

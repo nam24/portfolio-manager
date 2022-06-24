@@ -1,3 +1,4 @@
+from time import sleep
 from applescript import tell
 from constants import Constants
 
@@ -14,6 +15,7 @@ class CreateCSV:
         exportFullCSVCmd = 'casparser -o cas.csv -p ' + filePassword + ' ' + fileName
         exportSummaryCSVCmd = 'casparser -o cas-summary.csv -p ' + filePassword + ' -s -a ' + fileName
         tell.app('Terminal', 'do script "' + switchDirCmd + '"' + 'in window 1') 
+        sleep(5)
         tell.app('Terminal', 'do script "' + exportFullCSVCmd + '"' + 'in window 1') 
         tell.app('Terminal', 'do script "' + exportSummaryCSVCmd + '"' + 'in window 1')
 
